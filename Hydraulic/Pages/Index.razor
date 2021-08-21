@@ -62,6 +62,7 @@ Welcome to your new app.
 
         Point p = new Point(10, 10);
         var ourNode = new TestModel(p);
+        ourNode.AddPort(new PortModel(ourNode));
         Diagram.Nodes.Add(ourNode);
     }
 
