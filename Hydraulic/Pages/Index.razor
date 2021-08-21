@@ -4,8 +4,6 @@
 
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
-
 <div style="height:500px ; width:500px">
     <!-- Add this where you want to show the diagram -->
     <CascadingValue Value="Diagram">
@@ -17,6 +15,7 @@ Welcome to your new app.
 @using Blazor.Diagrams.Core.Models;
 @using Blazor.Diagrams.Components;
 @using Blazor.Diagrams.Core.Geometry;
+@using HydraulicComponents;
 
 
 @code {
@@ -32,9 +31,11 @@ Welcome to your new app.
             DeleteKey = "Delete", // What key deletes the selected nodes/links
             DefaultNodeComponent = null, // Default component for nodes
             AllowMultiSelection = true, // Whether to allow multi selection using CTRL
+            GridSize = 50,
             Links = new DiagramLinkOptions
             {
                 // Options related to links
+                EnableSnapping = true,
             },
             Zoom = new DiagramZoomOptions
             {
@@ -45,10 +46,9 @@ Welcome to your new app.
         };
 
         Diagram = new Diagram(options);
+        Diagram.RegisterModelComponent<TestModel, TestComponent>();
 
-        // Create the diagram
         Setup();
-
     }
 
     private void Setup()
@@ -59,6 +59,10 @@ Welcome to your new app.
         Diagram.Nodes.Add(node1);
         Diagram.Nodes.Add(node2);
         Diagram.Nodes.Add(node3);
+
+        Point p = new Point(10, 10);
+        var ourNode = new TestModel(p);
+        Diagram.Nodes.Add(ourNode);
     }
 
     private NodeModel NewNode(double x, double y)
