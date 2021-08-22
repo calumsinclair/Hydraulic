@@ -11,6 +11,7 @@ Welcome to your new app.
     </CascadingValue>
 </div>
 
+
 @using Blazor.Diagrams.Core;
 @using Blazor.Diagrams.Core.Models;
 @using Blazor.Diagrams.Components;
@@ -20,20 +21,19 @@ Welcome to your new app.
 
 @code {
 
-
-
     public Diagram Diagram { get; set; }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
+
         var options = new DiagramOptions
         {
             DeleteKey = "Delete", // What key deletes the selected nodes/links
             DefaultNodeComponent = null, // Default component for nodes
             AllowMultiSelection = true, // Whether to allow multi selection using CTRL
-            GridSize = 50,
+            GridSize = 10,
             Links = new DiagramLinkOptions
             {
                 // Options related to links

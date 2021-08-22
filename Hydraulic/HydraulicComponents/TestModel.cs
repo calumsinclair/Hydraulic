@@ -10,8 +10,7 @@ namespace Hydraulic.HydraulicComponents
         public string Image;
         public Properties.IProperties Props;
 
-        public TestModel(
-            Point position, 
+        public TestModel(Point position, 
             string image, 
             Properties.IProperties props,
             PortAlignment[] ports

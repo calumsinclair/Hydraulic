@@ -42,9 +42,20 @@ a, .btn-link {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-column-gap: 5px;
+    grid-template-columns: auto auto auto;
+}
+
+.grid-item {
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -2,6 +2,8 @@
 
 <div class="default-node @(Node.Group != null ? "grouped" : "") @(Node.Selected ? "selected" : "")">
     <img src="@Node.Image"/>
+
+
     @foreach (var port in Node.Ports)
     {
         <PortRenderer Port="port" Class="default"></PortRenderer>

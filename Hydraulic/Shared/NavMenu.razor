@@ -5,6 +5,23 @@
     </button>
 </div>
 
+<h2>Components</h2>
+
+<div class=" Components">
+    <div class="grid-container">
+        @foreach (string component in menuComponents)
+        {
+            <div class="grid-item">
+                <img src="Images/Components/@component" height="50px" width="50px" />
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+<!--
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
@@ -23,15 +40,29 @@
             </NavLink>
         </li>
     </ul>
-</div>
+</div>-->
 
 @code {
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    private string[] menuComponents = { "AccumulatorBladder.png", "PumpFixedDisplacement.png", "CheckValve.png" };
+
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    public void InitialiseMenu(string[] newMenuComponents)
+    {
+        /*
+        newMenuComponents =
+        menuComponents = newMenuComponents;*/
+    }
+
+    private void SpawnComponent(string component)
+    {
+
     }
 }
