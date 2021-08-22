@@ -1,7 +1,7 @@
 ﻿@using Blazor.Diagrams.Components.Renderers;
 
 <div class="default-node @(Node.Group != null ? "grouped" : "") @(Node.Selected ? "selected" : "")">
-    <span>Hello</span>
+    <img src="@Node.Image"/>
     @foreach (var port in Node.Ports)
     {
         <PortRenderer Port="port" Class="default"></PortRenderer>

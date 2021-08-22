@@ -16,9 +16,11 @@ Welcome to your new app.
 @using Blazor.Diagrams.Components;
 @using Blazor.Diagrams.Core.Geometry;
 @using HydraulicComponents;
-
+@using HydraulicComponents.Properties;
 
 @code {
+
+
 
     public Diagram Diagram { get; set; }
 
@@ -60,10 +62,9 @@ Welcome to your new app.
         Diagram.Nodes.Add(node2);
         Diagram.Nodes.Add(node3);
 
-        Point p = new Point(10, 10);
-        var ourNode = new TestModel(p);
-        ourNode.AddPort(PortAlignment.Bottom);
-        Diagram.Nodes.Add(ourNode);
+        Diagram.Nodes.Add(SpawnPump(new Point(10, 10)));
+
+        reflectionTest();
     }
 
     private NodeModel NewNode(double x, double y)
@@ -74,5 +75,41 @@ Welcome to your new app.
         node.AddPort(PortAlignment.Left);
         node.AddPort(PortAlignment.Right);
         return node;
+    }
+
+    private TestModel SpawnPump(Point p)
+    {
+        PortAlignment[] ports = { PortAlignment.Top, PortAlignment.Bottom };
+        return new TestModel(p, "pump.png", new Pump(PumpType.FIXED_DISPLACEMENT), ports);
+    }
+
+    private void reflectionTest()
+    {
+        // testing get pump props
+        IProperties p = new Pump(PumpType.FIXED_DISPLACEMENT);
+
+        Type t = p.GetType();
+
+        var props = t.GetProperties();
+        foreach (var prop in props)
+        {
+            Console.WriteLine(prop.ToString());
+            var propType = prop.PropertyType;
+            if (propType.IsEnum)
+            {
+                Console.WriteLine("prop is enum, valid values are:");
+                foreach (var v in Enum.GetValues(prop.PropertyType))
+                    Console.WriteLine(v);
+            }
+            else if (propType == typeof(Single))
+            {
+
+                var attributes = prop.CustomAttributes;
+                foreach (var att in attributes)
+                {
+                    Console.WriteLine(att);
+                }
+            }
+        }
     }
 }
