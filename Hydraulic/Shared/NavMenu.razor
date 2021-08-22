@@ -1,4 +1,8 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@inject AppEvents AppEvents
+
+@using Hydraulic.HydraulicComponents.Properties
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Hydraulic</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -11,8 +15,9 @@
     <div class="grid-container">
         @foreach (string component in menuComponents)
         {
-            <div class="grid-item">
-                <img src="Images/Components/@component" height="50px" width="50px" />
+            var imageURL = $"Images/Components/{component}";
+            <div class="grid-item" @onclick='(()=>AppEvents.OnComponentClicked(new Pump(PumpType.FIXED_DISPLACEMENT), imageURL))'>
+                <img src="@imageURL" height="50px" width="50px" />
             </div>
         }
     </div>
