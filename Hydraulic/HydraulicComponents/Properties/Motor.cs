@@ -7,14 +7,8 @@ using Blazor.Diagrams.Core.Models;
 
 namespace Hydraulic.HydraulicComponents.Properties
 {
-    public enum PumpType
-    {
-        FixedDisplacement,
-        VAIRABLE_DISPLACEMENT
-    }
-    public record Pump(
-        PumpType Type,
-        [property:RangeAttribute(0, 100)] float power = 10f
+    public record Motor(
+        [property: RangeAttribute(0, 100)] float power = 10f
     ) : IProperties
-    {}
+    { }
 }

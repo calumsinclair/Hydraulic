@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace Hydraulic
 {
-
-    public class AppEvents
+    public class SpawnEvents
     {
         public record ComponentProps(IProperties props, string image);
-        public event EventHandler<ComponentProps> ComponentClicked;
+        public Action<int> ComponentClicked;
 
-        public virtual void OnComponentClicked(IProperties props, string image)
+        public void OnComponentClicked(int key)
         {
-            ComponentClicked?.Invoke(this, new ComponentProps(props, image));
+            ComponentClicked?.Invoke(key);
         }
     }
 }

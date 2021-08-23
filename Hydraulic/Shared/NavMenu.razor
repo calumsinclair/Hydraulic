@@ -1,6 +1,8 @@
-﻿@inject AppEvents AppEvents
+﻿@using Hydraulic
+@using Hydraulic.HydraulicComponents;
 
-@using Hydraulic.HydraulicComponents.Properties
+@inject SpawnEvents SpawnEvents
+@inject ComponentRegister registry  
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Hydraulic</a>
@@ -13,18 +15,14 @@
 
 <div class=" Components">
     <div class="grid-container">
-        @foreach (string component in menuComponents)
+        @foreach (var component in registry.GetComponents())
         {
-            var imageURL = $"Images/Components/{component}";
-            <div class="grid-item" @onclick='(()=>AppEvents.OnComponentClicked(new Pump(PumpType.FIXED_DISPLACEMENT), imageURL))'>
-                <img src="@imageURL" height="50px" width="50px" />
+            <div class="grid-item" @onclick='() => SpawnEvents.OnComponentClicked(component.Key)'>
+                <img src="@component.Value.image" height="50px" width="50px" />
             </div>
         }
     </div>
 </div>
-
-
-
 
 <!--
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
@@ -52,22 +50,9 @@
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private string[] menuComponents = { "AccumulatorBladder.png", "PumpFixedDisplacement.png", "CheckValve.png" };
-
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
 
-    public void InitialiseMenu(string[] newMenuComponents)
-    {
-        /*
-        newMenuComponents =
-        menuComponents = newMenuComponents;*/
-    }
-
-    private void SpawnComponent(string component)
-    {
-
-    }
 }

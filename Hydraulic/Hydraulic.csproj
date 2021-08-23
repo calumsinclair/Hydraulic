@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="HydraulicComponents\Properties\NewFile.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\Images\Components\AccumulatorBladder.png" />
     <None Include="wwwroot\Images\Components\CheckValve.png" />
     <None Include="wwwroot\Images\Components\CheckValveSpring.png" />

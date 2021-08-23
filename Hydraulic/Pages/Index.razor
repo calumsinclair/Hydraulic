@@ -1,7 +1,7 @@
-﻿@inject AppEvents AppEvents
+﻿@inject SpawnEvents SpawnEvents;
+@inject ComponentRegister ComponentRegister; 
 
 @page "/"
-
 
 <h1>Hello, world!</h1>
 
@@ -13,7 +13,6 @@ Welcome to your new app.
         <DiagramCanvas></DiagramCanvas>
     </CascadingValue>
 </div>
-
 
 @using Blazor.Diagrams.Core;
 @using Blazor.Diagrams.Core.Models;
@@ -53,7 +52,7 @@ Welcome to your new app.
         Diagram = new Diagram(options);
         Diagram.RegisterModelComponent<TestModel, TestComponent>();
 
-        AppEvents.ComponentClicked += this.CreateComponentClocked;
+        SpawnEvents.ComponentClicked += CreateComponentClicked;
 
         Setup();
     }
@@ -69,11 +68,12 @@ Welcome to your new app.
 
     }
 
-    public void CreateComponentClocked(object sender, AppEvents.ComponentProps props)
+    public void CreateComponentClicked(int key)
     {
-        PortAlignment[] ports = { PortAlignment.Top, PortAlignment.Bottom };
-        var model = new TestModel(new Point(0,0), props.image, props.props, ports);
-
+        // Get component from the registry 
+        ComponentData newComponent = ComponentRegister.GetComponent(key);
+        // Create and spawn the component
+        var model = new TestModel(new Point(0,0), newComponent.image, newComponent.props, newComponent.ports);
         Diagram.Nodes.Add(model);
     }
 
@@ -90,7 +90,7 @@ Welcome to your new app.
     private void reflectionTest()
     {
         // testing get pump props
-        IProperties p = new Pump(PumpType.FIXED_DISPLACEMENT);
+        IProperties p = new Pump(PumpType.FixedDisplacement);
 
         Type t = p.GetType();
 

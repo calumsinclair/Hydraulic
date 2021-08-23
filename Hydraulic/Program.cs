@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Hydraulic.HydraulicComponents;
 
 namespace Hydraulic
 {
@@ -18,7 +19,9 @@ namespace Hydraulic
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<AppEvents>();
+            builder.Services.AddSingleton<SpawnEvents>();
+            builder.Services.AddSingleton<ComponentRegister>();
+
 
             await builder.Build().RunAsync();
         }
