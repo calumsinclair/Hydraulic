@@ -1,8 +1,71 @@
 ﻿<h3>PropEditor</h3>
 
 <div>
-    <p>some props</p>
+    @{          
+        if (component == null)
+        { 
+            return; 
+        }
+
+        // Gets information about vairables in the record
+        Type pumpType = component.GetType();
+        FieldInfo[] fields = pumpType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+        foreach (var field in fields)
+        {
+            var fieldType = field.FieldType;
+            if (fieldType.IsEnum)
+            {
+                //<span>enum @field.Name </span>
+                //foreach (var v in Enum.GetValues(prop.PropertyType))
+                //    Console.WriteLine(v);
+            }
+            else if (fieldType == typeof(int))
+            {
+                <span>@StringCut(field.Name) </span>
+                <input type="number">
+            }
+        }
+    }
 </div>
 
+@using HydraulicComponents.Properties;
+@using System.Reflection;
+
+@inject SpawnEvents SpawnEvents;
+
 @code {
+
+    private IProperties component;
+
+    protected override void OnInitialized()
+    {
+        //SpawnEvents.ComponentSelected += DisplaySelectedProps;
+    }
+
+    // Event to refresh the properties panel 
+    private void DisplaySelectedProps(IProperties newProps)
+    {
+        Console.WriteLine("Event Handled");
+        /*
+        component = newProps;
+
+        InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });*/
+    }
+
+    private string StringCut(string newString)
+    {
+        int pFrom = newString.IndexOf("<") + 1;
+        int pTo = newString.LastIndexOf(">");
+
+        if (pFrom == -1 || pTo == -1)
+        {
+            Console.Error.WriteLine("Failed to convert the string when reflecting on the properties");
+        }
+
+        return newString.Substring(pFrom, pTo - pFrom);
+    }
 }

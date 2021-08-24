@@ -8,7 +8,7 @@
     <div class="grid-container">
         @foreach (var component in registry.GetComponents())
         {
-            <div class="grid-item" @onclick='() => SpawnEvents.OnComponentClicked(component.Key)'>
+            <div class="grid-item" @onclick='() => SpawnEvents.OnComponentSpawned(component.Key)'>
                 <img src="@component.Value.image" height="50px" width="50px" />
             </div>
         }

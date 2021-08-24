@@ -10,11 +10,11 @@ namespace Hydraulic.HydraulicComponents.Properties
     public enum PumpType
     {
         FixedDisplacement,
-        VAIRABLE_DISPLACEMENT
+        VairableDisplacement
     }
     public record Pump(
         PumpType Type,
-        [property:RangeAttribute(0, 100)] float power = 10f
+        int Displacement = 30
     ) : IProperties
     {}
 }

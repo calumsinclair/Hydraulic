@@ -1,6 +1,8 @@
 ﻿@using Blazor.Diagrams.Components.Renderers;
+@inject SpawnEvents SpawnEvents;
 
-<div class="default-node @(Node.Group != null ? "grouped" : "") @(Node.Selected ? "selected" : "")">
+<div class="default-node @(Node.Group != null ? "grouped" : "") @(Node.Selected ? "selected" : "")"
+     @onclick="() => SpawnEvents.OnComponentSelected(Node.Props)">
     <img src="@Node.Image" height="50" width="50"/>
 
 

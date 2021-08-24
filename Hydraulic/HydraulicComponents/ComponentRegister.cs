@@ -38,6 +38,12 @@ namespace Hydraulic.HydraulicComponents
                 topAndBottom
                 ));
 
+            Register(
+             new ComponentData(new Pump(PumpType.VairableDisplacement),
+             imagePrefix + "PumpVairableDisplacement.png",
+             topAndBottom
+             ));
+
             // Motor
             Register(
                 new ComponentData(new Motor(),

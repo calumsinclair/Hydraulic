@@ -21,8 +21,6 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-
         var options = new DiagramOptions
         {
             DeleteKey = "Delete", // What key deletes the selected nodes/links
@@ -45,7 +43,7 @@
         Diagram = new Diagram(options);
         Diagram.RegisterModelComponent<TestModel, TestComponent>();
 
-        SpawnEvents.ComponentClicked += CreateComponentClicked;
+        SpawnEvents.ComponentSpawned += CreateComponentClicked;
 
         Setup();
     }
@@ -80,33 +78,5 @@
         return node;
     }
 
-    private void reflectionTest()
-    {
-        // testing get pump props
-        IProperties p = new Pump(PumpType.FixedDisplacement);
 
-        Type t = p.GetType();
-
-        var props = t.GetProperties();
-        foreach (var prop in props)
-        {
-            Console.WriteLine(prop.ToString());
-            var propType = prop.PropertyType;
-            if (propType.IsEnum)
-            {
-                Console.WriteLine("prop is enum, valid values are:");
-                foreach (var v in Enum.GetValues(prop.PropertyType))
-                    Console.WriteLine(v);
-            }
-            else if (propType == typeof(Single))
-            {
-
-                var attributes = prop.CustomAttributes;
-                foreach (var att in attributes)
-                {
-                    Console.WriteLine(att);
-                }
-            }
-        }
-    }
 }
