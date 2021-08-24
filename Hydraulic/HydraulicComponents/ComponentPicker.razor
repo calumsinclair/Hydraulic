@@ -1,0 +1,28 @@
+﻿@using Hydraulic
+@using Hydraulic.HydraulicComponents;
+
+@inject SpawnEvents SpawnEvents
+@inject ComponentRegister registry  
+
+<div class=" Components">
+    <div class="grid-container">
+        @foreach (var component in registry.GetComponents())
+        {
+            <div class="grid-item" @onclick='() => SpawnEvents.OnComponentClicked(component.Key)'>
+                <img src="@component.Value.image" height="50px" width="50px" />
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+}
