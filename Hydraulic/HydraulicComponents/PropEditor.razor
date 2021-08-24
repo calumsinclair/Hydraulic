@@ -1,32 +1,34 @@
 ﻿<h3>PropEditor</h3>
 
 <div>
-    @{          
-        if (component == null)
-        { 
-            return; 
-        }
-
-        // Gets information about vairables in the record
-        Type pumpType = component.GetType();
-        FieldInfo[] fields = pumpType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-
-        foreach (var field in fields)
+    @{
+        if (component != null)
         {
-            var fieldType = field.FieldType;
-            if (fieldType.IsEnum)
+            // Gets information about vairables in the record
+            Type pumpType = component.GetType();
+            FieldInfo[] fields = pumpType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            foreach (var field in fields)
             {
-                //<span>enum @field.Name </span>
-                //foreach (var v in Enum.GetValues(prop.PropertyType))
-                //    Console.WriteLine(v);
-            }
-            else if (fieldType == typeof(int))
-            {
-                <span>@StringCut(field.Name) </span>
-                <input type="number">
+                var fieldType = field.FieldType;
+                if (fieldType.IsEnum)
+                {
+                    //<span>enum @field.Name </span>
+                    //foreach (var v in Enum.GetValues(prop.PropertyType))
+                    //    Console.WriteLine(v);
+                }
+                else if (fieldType == typeof(int))
+                {
+                    <span>@StringCut(field.Name) </span>
+                    <input type="number"
+                           value="@field.GetValue(component)"
+                           @onchange="@((ChangeEventArgs e) => field.SetValue(component, 20))">
+                }
             }
         }
     }
+
+    <!---->
 </div>
 
 @using HydraulicComponents.Properties;
@@ -40,20 +42,18 @@
 
     protected override void OnInitialized()
     {
-        //SpawnEvents.ComponentSelected += DisplaySelectedProps;
+        SpawnEvents.ComponentSelected += DisplaySelectedProps;
     }
 
     // Event to refresh the properties panel 
     private void DisplaySelectedProps(IProperties newProps)
     {
-        Console.WriteLine("Event Handled");
-        /*
         component = newProps;
 
         InvokeAsync(() =>
         {
             StateHasChanged();
-        });*/
+        });
     }
 
     private string StringCut(string newString)
