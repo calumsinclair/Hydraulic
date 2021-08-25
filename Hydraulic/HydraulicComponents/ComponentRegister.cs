@@ -9,11 +9,11 @@ namespace Hydraulic.HydraulicComponents
 {
     public class ComponentData
     {
-        public IProperties props;
+        public Func<IProperties> props;
         public string image;
         public PortAlignment[] ports;
 
-        public ComponentData(IProperties newProps, string newImage, PortAlignment[] newPorts)
+        public ComponentData(Func<IProperties> newProps, string newImage, PortAlignment[] newPorts)
         {
             props = newProps;
             image = newImage;
@@ -33,20 +33,20 @@ namespace Hydraulic.HydraulicComponents
             
             //Pump
             Register(
-                new ComponentData(new Pump(PumpType.FixedDisplacement),
+                new ComponentData(()=>new Pump(PumpType.FixedDisplacement),
                 imagePrefix + "PumpFixedDisplacement.png", 
                 topAndBottom
                 ));
 
             Register(
-             new ComponentData(new Pump(PumpType.VairableDisplacement),
+             new ComponentData(()=>new Pump(PumpType.VairableDisplacement),
              imagePrefix + "PumpVairableDisplacement.png",
              topAndBottom
              ));
 
             // Motor
             Register(
-                new ComponentData(new Motor(),
+                new ComponentData(()=>new Motor(),
                 imagePrefix + "MotorElectirc.png",
                 topAndBottom));
         }

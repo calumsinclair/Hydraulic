@@ -20,15 +20,14 @@
                 else if (fieldType == typeof(int))
                 {
                     <span>@StringCut(field.Name) </span>
-                    <input type="number"
-                           value="@field.GetValue(component)"
-                           @onchange="@((ChangeEventArgs e) => field.SetValue(component, 20))">
+                    <input type="number" 
+                           @bind="PropertyVars[field.Name]" 
+                           @onfocusout="()=>field.SetValue(component, int.Parse(PropertyVars[field.Name]))">
                 }
             }
         }
     }
 
-    <!---->
 </div>
 
 @using HydraulicComponents.Properties;
@@ -40,6 +39,9 @@
 
     private IProperties component;
 
+    public Dictionary<string, string> PropertyVars = new Dictionary<string, string>();
+
+
     protected override void OnInitialized()
     {
         SpawnEvents.ComponentSelected += DisplaySelectedProps;
@@ -48,7 +50,15 @@
     // Event to refresh the properties panel 
     private void DisplaySelectedProps(IProperties newProps)
     {
+        PropertyVars.Clear();
         component = newProps;
+
+        Type pumpType = component.GetType();
+        FieldInfo[] fields = pumpType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+        foreach (var field in fields)
+        {
+            PropertyVars.Add(field.Name, field.GetValue(component).ToString());
+        }
 
         InvokeAsync(() =>
         {
