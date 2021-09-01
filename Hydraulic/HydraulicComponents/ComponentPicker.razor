@@ -1,10 +1,12 @@
 ﻿@using Hydraulic
 @using Hydraulic.HydraulicComponents;
+@using Shared
 
 @inject SpawnEvents SpawnEvents
-@inject ComponentRegister registry  
+@inject ComponentRegister registry
 
 <div class=" Components">
+    <SectionHeader>Components</SectionHeader>
     <div class="grid-container">
         @foreach (var component in registry.GetComponents())
         {

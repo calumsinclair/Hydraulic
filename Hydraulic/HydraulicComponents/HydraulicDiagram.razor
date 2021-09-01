@@ -1,7 +1,7 @@
 ﻿@inject SpawnEvents SpawnEvents;
 @inject ComponentRegister ComponentRegister;
 
-<div style="height:500px ; width:100%; background-color:lightgray">
+<div style="height:100% ; width:100%; background-color:lightgray">
     <CascadingValue Value="Diagram">
         <DiagramCanvas></DiagramCanvas>
     </CascadingValue>
@@ -44,19 +44,6 @@
         Diagram.RegisterModelComponent<TestModel, TestComponent>();
 
         SpawnEvents.ComponentSpawned += CreateComponentClicked;
-
-        Setup();
-    }
-
-    private void Setup()
-    {
-        var node1 = NewNode(50, 50);
-        var node2 = NewNode(300, 300);
-        var node3 = NewNode(300, 50);
-        Diagram.Nodes.Add(node1);
-        Diagram.Nodes.Add(node2);
-        Diagram.Nodes.Add(node3);
-
     }
 
     public void CreateComponentClicked(int key)

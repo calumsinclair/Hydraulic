@@ -1,8 +1,115 @@
 ﻿@page "/"
 @using Hydraulic.HydraulicComponents;
+@implements IDisposable
+@inject IJSRuntime JS
 
-<div style="display: grid; grid-template-columns: 300px 1fr;">
-    <ComponentPicker />
-    <HydraulicDiagram />
-    <PropEditor />
+<div class="FlexWrapper" @ref="wrapper" @onmousemove="(e)=>Drag(e)">
+    <div class="boxfixed" style=@component_picker_style><ComponentPicker /></div>
+    <div class="handler left" @onmousedown="() => MouseDownOnHandle(Dragable.Components)"></div>
+    <div class="box"><HydraulicDiagram /></div>
+    <div class="handler right" @onmousedown="() => MouseDownOnHandle(Dragable.Props)"></div>
+    <div class="boxfixed" style=@prop_editor_style><PropEditor /></div>
 </div>
+
+@code{
+
+
+    private String component_picker_style = "";
+    private String prop_editor_style = "";
+    private ElementReference wrapper;
+    private DotNetObjectReference<Index> objRef;
+
+    enum Dragable
+    {
+        Props,
+        Components,
+        None
+    };
+    private Dragable dragging = Dragable.None;
+
+    protected override Task OnInitializedAsync()
+    {
+        objRef = DotNetObjectReference.Create(this);
+        JS.InvokeVoidAsync("bindDocEvent", objRef, "MouseUp", "onmouseup");
+        return base.OnInitializedAsync();
+    }
+
+
+    private void MouseDownOnHandle(Dragable dragable)
+    {
+        dragging = dragable;
+        JS.InvokeVoidAsync("ToggleSelect", true);
+    }
+
+    [JSInvokable]
+    public void MouseUp()
+    {
+        dragging = Dragable.None;
+        JS.InvokeVoidAsync("ToggleSelect", false);
+    }
+
+    private async void DragCompoenents(MouseEventArgs e)
+    {
+        // Get offset
+        var containerOffsetLeft = await JS.InvokeAsync<int>(
+            "GetElProp", wrapper, "offsetLeft");
+
+        // Get x-coordinate of pointer relative to container
+        var pointerRelativeXpos = e.ClientX - containerOffsetLeft;
+
+        // Arbitrary minimum width set on box A, otherwise its inner content will collapse to width of 0
+        var boxAminWidth = 60;
+
+        // Resize box A
+        // * 1px is the left/right spacing between .handler and its inner pseudo-element
+        // * Set flex-grow to 0 to prevent it from growing
+        int width = (int)(Math.Max(boxAminWidth, pointerRelativeXpos - 1));
+
+        component_picker_style = $"width : {width}px; flexGrow : 0";
+
+    }
+
+    private async void DragProps(MouseEventArgs e)
+    {
+        // Get offset
+        var windowWidth = await JS.InvokeAsync<int>("GetWindowProp", "innerWidth");
+
+        // Get x-coordinate of pointer relative to container
+        var pointerRelativeXpos = windowWidth - e.ClientX;
+
+        // Arbitrary minimum width set on box A, otherwise its inner content will collapse to width of 0
+        var boxAminWidth = 60;
+
+        // Resize box A
+        // * 1px is the left/right spacing between .handler and its inner pseudo-element
+        // * Set flex-grow to 0 to prevent it from growing
+        int width = (int)(Math.Max(boxAminWidth, pointerRelativeXpos - 1));
+
+
+        prop_editor_style = $"width : {width}px; flexGrow : 0";
+    }
+
+    
+    public void Drag(MouseEventArgs e)
+    {
+
+        if (dragging == Dragable.None)
+        {
+            return;
+        }
+        else if (dragging == Dragable.Components)
+        {
+            DragCompoenents(e);
+        }
+        else if (dragging == Dragable.Props)
+        {
+            DragProps(e);
+        }
+    }
+
+    // not sure if this is required...
+    public void Dispose()
+    {
+        objRef?.Dispose();
+    }
+}

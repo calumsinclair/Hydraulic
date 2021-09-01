@@ -1,13 +1,24 @@
 ﻿@inherits LayoutComponentBase
 
+@using Shared
 <div class="page">
     <div class="main">
-        <div class="top-row px-4">
-            <h1>Well Gid Diagrams n that</h1>
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+        <div class="top-row">
+            <SectionHeader FillHeight=true>A doc filename</SectionHeader>
         </div>
-
-        <div class="content px-4">
+        <div style=" background-color: #e6e6e6;">
+            <DropdownMenu Name="File">
+                <a href="#">New</a>
+                <a href="#">Save</a>
+                <a href="#">Save As</a>
+            </DropdownMenu><DropdownMenu Name="Edit">
+                <a href="#">Preferences</a>
+                <a href="#">Components</a>
+            </DropdownMenu><DropdownMenu Name="Help">
+                <a href="#">About</a>
+            </DropdownMenu>
+        </div>
+        <div>
             @Body
         </div>
     </div>

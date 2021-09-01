@@ -16,6 +16,42 @@
     <!-- if you want the default styling -->
     <link href="_content/Z.Blazor.Diagrams/default.styles.min.css" rel="stylesheet" />
 
+    <script type="text/javascript">
+        
+        window.GetElProp = (element, prop) => {
+            if (element)
+                return element[prop];
+        }
+
+        window.GetWindowProp = (prop) => {
+            return window[prop];
+        }
+
+        window.ToggleSelect = (enable) => {
+            var body = document.getElementsByTagName("body");
+            if (enable) {
+                body[0].classList.add("disableSelect");
+            } else {
+                body[0].classList.remove("disableSelect");
+            }
+        }
+
+        window.bindDocEvent = (dotNetHelper, methodName, event) => {
+            document[event] = (e) => {
+
+                // Cant pass the event directly because events dont serialise (because of circular refs)
+                // so doing this slightly rubbish thing 
+
+                // all I needed right now
+                var evt = {
+                    clientX: e.clientX
+                }
+
+                dotNetHelper.invokeMethodAsync(methodName, evt);
+            };
+        }
+    </script>
+
   
 </head>
 

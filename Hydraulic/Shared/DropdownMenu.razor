@@ -1,0 +1,13 @@
+﻿<div class="dropdown">
+    <button class="dropbtn">@Name</button>
+    <div class="dropdown-content">
+        @ChildContent
+    </div>
+</div>
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+}

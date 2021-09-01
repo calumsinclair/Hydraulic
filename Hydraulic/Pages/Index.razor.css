@@ -1,0 +1,48 @@
+﻿body {
+}
+
+.FlexWrapper {
+    /* Use flexbox */
+    display: flex;
+    height:100%;
+}
+
+.boxfixed {
+    /* Use box-sizing so that element's outerwidth will match width property */
+    box-sizing: border-box;
+    /* Allow box to grow and shrink, and ensure they are all equally sized */
+    flex: 0 0 auto;
+}
+
+.box {
+    /* Use box-sizing so that element's outerwidth will match width property */
+    box-sizing: border-box;
+    /* Allow box to grow and shrink, and ensure they are all equally sized */
+    flex: 1 1 auto;
+}
+
+.handler {
+    padding: 0;
+    width:3px;
+    cursor: ew-resize;
+    flex: 0 0 auto;
+    background : lightgrey; /*This it a total hack, to not display the handle ontop of the diagram*/
+}
+
+    .handler.right:before {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 100%;
+        background: black;
+        margin: 0 0 0 auto;
+    }
+
+    .handler.left:after {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 100%;
+        background: rgb(56, 56, 56);
+        margin: 0;
+    }
