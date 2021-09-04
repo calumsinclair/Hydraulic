@@ -51,11 +51,10 @@ namespace Hydraulic.HydraulicComponents
                 new ComponentDisplayState(imagePrefix + "MotorElectirc.png"),
                 topAndBottom));
 
-            // Motor
+            // ControlValve
             Register(
-                new ComponentData(() => new DirectionalControlValve(),
-                new ControlValveDisplayState(imagePrefix + "Filter.png",
-                                             imagePrefix + "MotorElectirc.png"),
+                new ComponentData(() => new DirectionalControlVavle(ControlValveType.ProportionalControl),
+                new ControlValveDisplayState(imagePrefix, imagePrefix + "DirectionalControlValve43.png"),
                 topAndBottom));
 
         }

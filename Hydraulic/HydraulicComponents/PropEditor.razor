@@ -15,15 +15,22 @@
                 var fieldType = field.FieldType;
                 if (fieldType.IsEnum)
                 {
-                    //<span>enum @field.Name </span>
-                    //foreach (var v in Enum.GetValues(prop.PropertyType))
-                    //    Console.WriteLine(v);
+                    <span>@StringCut(field.Name)</span>
+
+                    <select @onchange="(e) => SetPropertyEnum(field, e.Value.ToString())">
+
+                        @foreach (var value in Enum.GetValues(fieldType))
+                        {
+                            <option>@value</option>
+                        }
+
+                    </select>
                 }
                 else if (fieldType == typeof(int))
                 {
                     <span>@StringCut(field.Name) </span>
-                    <input type="number" 
-                           @bind="PropertyVars[field.Name]" 
+                    <input type="number"
+                           @bind="PropertyVars[field.Name]"
                            @onfocusout="()=>field.SetValue(component, int.Parse(PropertyVars[field.Name]))">
                 }
             }
@@ -41,7 +48,8 @@
 
     private IProperties component;
 
-    public Dictionary<string, string> PropertyVars = new Dictionary<string, string>();
+    private Dictionary<string, string> PropertyVars = new Dictionary<string, string>();
+    private Action propertiesUpdated;
 
 
     protected override void OnInitialized()
@@ -50,8 +58,9 @@
     }
 
     // Event to refresh the properties panel 
-    private void DisplaySelectedProps(IProperties newProps)
+    private void DisplaySelectedProps(IProperties newProps, Action onPropsUpdated)
     {
+        propertiesUpdated = onPropsUpdated;
         PropertyVars.Clear();
         component = newProps;
 
@@ -66,6 +75,12 @@
         {
             StateHasChanged();
         });
+    }
+
+    private void SetPropertyEnum(FieldInfo field, string value)
+    {
+        field.SetValue(component, Enum.Parse(field.FieldType, value));
+        propertiesUpdated();
     }
 
     private string StringCut(string newString)

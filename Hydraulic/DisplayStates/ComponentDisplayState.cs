@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hydraulic.HydraulicComponents.Properties;
 
 namespace Hydraulic
 {
@@ -29,5 +30,7 @@ namespace Hydraulic
                 return images[0];
             }
         }
+
+        public virtual void UpdateDisplayState(IProperties props) { }
     }
 }

@@ -62,4 +62,33 @@ a, .btn-link {
 
 .disableSelect {
     user-select: none;
+
+}
+
+.component {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #b5b5b5;
+    padding: 5px;
+}
+
+.component .port {
+    width: 10px;
+    height: 10px;
+    margin: -10px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #aeaeae;
+    cursor: pointer;
+    position: absolute;
+}
+
+.component .port.top {
+    top:0;
+    left:50%;
+}
+
+.component .port.bottom {
+    bottom: 0;
+    left: 50%;
 }
