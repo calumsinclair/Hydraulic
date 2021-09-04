@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Blazor.Diagrams.Core.Models;
+using Hydraulic.DisplayStates;
 using Hydraulic.HydraulicComponents.Properties;
 
 namespace Hydraulic.HydraulicComponents
@@ -10,13 +11,13 @@ namespace Hydraulic.HydraulicComponents
     public class ComponentData
     {
         public Func<IProperties> props;
-        public string image;
+        public ComponentDisplayState displayState;
         public PortAlignment[] ports;
 
-        public ComponentData(Func<IProperties> newProps, string newImage, PortAlignment[] newPorts)
+        public ComponentData(Func<IProperties> newProps, ComponentDisplayState displayState, PortAlignment[] newPorts)
         {
             props = newProps;
-            image = newImage;
+            this.displayState = displayState;
             ports = newPorts;
         }
     }
@@ -34,21 +35,29 @@ namespace Hydraulic.HydraulicComponents
             //Pump
             Register(
                 new ComponentData(()=>new Pump(PumpType.FixedDisplacement),
-                imagePrefix + "PumpFixedDisplacement.png", 
+                new ComponentDisplayState(imagePrefix + "PumpFixedDisplacement.png"), 
                 topAndBottom
-                ));
+            ));
 
             Register(
              new ComponentData(()=>new Pump(PumpType.VairableDisplacement),
-             imagePrefix + "PumpVairableDisplacement.png",
+             new ComponentDisplayState(imagePrefix + "PumpVairableDisplacement.png"),
              topAndBottom
              ));
 
             // Motor
             Register(
                 new ComponentData(()=>new Motor(),
-                imagePrefix + "MotorElectirc.png",
+                new ComponentDisplayState(imagePrefix + "MotorElectirc.png"),
                 topAndBottom));
+
+            // Motor
+            Register(
+                new ComponentData(() => new DirectionalControlValve(),
+                new ControlValveDisplayState(imagePrefix + "Filter.png",
+                                             imagePrefix + "MotorElectirc.png"),
+                topAndBottom));
+
         }
 
         private void Register(ComponentData c)

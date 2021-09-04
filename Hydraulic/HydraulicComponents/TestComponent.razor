@@ -3,8 +3,9 @@
 
 <div class="default-node @(Node.Group != null ? "grouped" : "") @(Node.Selected ? "selected" : "")"
      @onclick="() => SpawnEvents.OnComponentSelected(Node.Props)">
-    <img src="@Node.Image" height="50" width="50"/>
-
+    @foreach(var img in Node.DisplayState.Images) {
+        <img src="@img" height="50" width="50" />
+    }
 
     @foreach (var port in Node.Ports)
     {

@@ -52,7 +52,7 @@
         ComponentData newComponent = ComponentRegister.GetComponent(key);
         
         // Create and spawn the component
-        var model = new TestModel(new Point(0, 0), newComponent.image, newComponent.props(), newComponent.ports);
+        var model = new TestModel(new Point(0, 0), newComponent.displayState, newComponent.props(), newComponent.ports);
         Diagram.Nodes.Add(model);
     }
 

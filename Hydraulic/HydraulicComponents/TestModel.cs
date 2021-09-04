@@ -7,17 +7,17 @@ namespace Hydraulic.HydraulicComponents
 
     public class TestModel : NodeModel
     {
-        public string Image;
+        public ComponentDisplayState DisplayState;
         public Properties.IProperties Props;
 
-        public TestModel(Point position, 
-            string image, 
+        public TestModel(Point position,
+            ComponentDisplayState displayState, 
             Properties.IProperties props,
             PortAlignment[] ports
         ) : base(position)
         {
-            this.Image = image;
-            this.Props = props;
+            DisplayState = displayState;
+            Props = props;
 
             foreach(var port in ports)
             {
