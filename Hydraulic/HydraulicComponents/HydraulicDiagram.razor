@@ -30,7 +30,7 @@
             Links = new DiagramLinkOptions
             {
                 // Options related to links
-                EnableSnapping = true,
+                EnableSnapping = true
             },
             Zoom = new DiagramZoomOptions
             {
@@ -50,7 +50,7 @@
     {
         // Get component from the registry
         ComponentData newComponent = ComponentRegister.GetComponent(key);
-        
+
         // Create and spawn the component
         var model = new TestModel(new Point(0, 0), newComponent.displayState, newComponent.props(), newComponent.ports);
         Diagram.Nodes.Add(model);

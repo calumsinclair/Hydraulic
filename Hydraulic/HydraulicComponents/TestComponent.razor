@@ -4,6 +4,10 @@
 <div class="component"
      @onclick="() => SpawnEvents.OnComponentSelected(Node.Props, this.Refresh )">
 
+    <div style="position:relative; left:50px; z-index:500">
+        <PortRenderer Port="Node.Ports[0]" Class="default"></PortRenderer>
+    </div>
+
     @for (int i = 0; i < Node.DisplayState.Images.Length; i++)
     {
         if (i < 2)
@@ -12,15 +16,25 @@
         }
         else
         {
-            <img src="@Node.DisplayState.Images[i]" height="50" width="50" ondragstart="{ return false }" 
-                   style="transform: scaleX(-1);"/>
+            <img src="@Node.DisplayState.Images[i]" height="50" width="50" ondragstart="{ return false }"
+                 style="transform: scaleX(-1);" />
         }
+    }
+
+    <div style="position: relative; left: -50px;">
+        <PortRenderer Port="Node.Ports[1]" Class="default"></PortRenderer>
+    </div>
+
+    @for (int i = 0; i < Node.Ports.Count; i++)
+    {
+
     }
 
     @foreach (var port in Node.Ports)
     {
-        <PortRenderer Port="port" Class="default"></PortRenderer>
+
     }
+
 </div>
 
 @code {

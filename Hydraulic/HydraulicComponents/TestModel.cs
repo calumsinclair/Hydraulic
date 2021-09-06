@@ -19,9 +19,17 @@ namespace Hydraulic.HydraulicComponents
             DisplayState = displayState;
             Props = props;
 
+            /*
+            Point extraPoint = new Point(0, 0);
+            Size newSize = new Size(1, 3);
+            PortModel newPort = new PortModel(this,PortAlignment.Bottom, extraPoint, newSize);
+
+            AddPort(newPort);*/
+
+            
             foreach(var port in ports)
             {
-                this.AddPort(port);
+                AddPort(port);
             }
         }
 
