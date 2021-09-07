@@ -92,3 +92,7 @@ a, .btn-link {
     bottom: 0;
     left: 50%;
 }
+
+.propEditor {
+    margin: 10px;
+}

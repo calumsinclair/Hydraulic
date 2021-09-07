@@ -1,0 +1,23 @@
+﻿@using Blazor.Diagrams.Core.Extensions;
+@inject SpawnEvents SpawnEvents;
+
+<line @onclick="() => SpawnEvents.OnComponentSelected(Link.props, this.Refresh)"
+          x1="@Link.GetMiddleSourceX().ToInvariantString()"
+          y1="@Link.GetMiddleSourceY().ToInvariantString()"
+          x2="@Link.GetTargetX().ToInvariantString()"
+          y2="@Link.GetTargetY().ToInvariantString()"
+          stroke="@(Link.Selected ? "red" : "blue")"
+          stroke-width="3" />
+
+@code {
+    [Parameter]
+    public CustomLinkModel Link { get; set; }
+
+    private void Refresh()
+    {
+        //Link.DisplayState.UpdateDisplayState(Node.Props);
+        InvokeAsync(StateHasChanged);
+    }
+}
+
+

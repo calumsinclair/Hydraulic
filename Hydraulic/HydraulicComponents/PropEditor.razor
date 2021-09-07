@@ -2,7 +2,7 @@
 
 <SectionHeader>Properties</SectionHeader>
 
-<div>
+<div class="propEditor">
     @{
         if (component != null)
         {
@@ -19,10 +19,10 @@
 
                     <select @onchange="(e) => SetPropertyEnum(field, e.Value.ToString())">
 
-                        @foreach (var value in Enum.GetValues(fieldType))
-                        {
-                            <option>@value</option>
-                        }
+                    @foreach (var value in Enum.GetValues(fieldType))
+                    {
+                        <option>@value</option>
+                    }
 
                     </select>
                 }

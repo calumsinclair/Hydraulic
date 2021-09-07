@@ -44,6 +44,14 @@
         Diagram.RegisterModelComponent<TestModel, TestComponent>();
 
         SpawnEvents.ComponentSpawned += CreateComponentClicked;
+
+        // Custom link test  
+        Diagram.RegisterModelComponent<CustomLinkModel, CustomLinkComponent>();
+        var node1 = NewNode(20, 20);
+        var node2 = NewNode(30, 30);
+        Diagram.Nodes.Add(node1);
+        Diagram.Nodes.Add(node2);
+        Diagram.Links.Add(new CustomLinkModel (node1.GetPort(PortAlignment.Top), node2.GetPort(PortAlignment.Bottom)));
     }
 
     public void CreateComponentClicked(int key)
