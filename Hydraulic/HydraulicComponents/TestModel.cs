@@ -28,7 +28,15 @@ namespace Hydraulic.HydraulicComponents
           
             foreach(var port in ports)
             {
-                CustomPortModel model = new CustomPortModel(this, port);
+                PortAlignment allignment = PortAlignment.Bottom;
+                if(port.Item2 < 25)
+                {
+                    allignment = PortAlignment.Top;
+                }
+
+                CustomPortModel model = new CustomPortModel(this, allignment, port);
+
+
                 AddPort(model);
             }
         }

@@ -32,8 +32,8 @@ namespace Hydraulic.HydraulicComponents
         public ComponentRegister()
         {
             //PortAlignment[] topAndBottom = { PortAlignment.Top, PortAlignment.Bottom };
-            (int, int)[] topAndBottom = { (0, 0), (0, 100) };
-            (int, int)[] fourMiddle = { (0, 0), (1, 0), (0, 1), (1, 1) };
+            (int, int)[] topAndBottom = { (25, 0), (25, 60) };
+            (int, int)[] fourMiddle = { (60, 0), (90, 0), (60, 60), (90, 60) };
 
             //Pump
             Register(

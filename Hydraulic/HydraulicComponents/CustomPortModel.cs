@@ -11,8 +11,10 @@ namespace Hydraulic.HydraulicComponents
     {
         public (int, int) Offset { get; private set; }
 
-        public CustomPortModel(NodeModel parent,  (int,int) Offset) : base(parent, PortAlignment.Top, null, null)
+        public CustomPortModel(NodeModel parent, PortAlignment alignment, (int,int) newOffset)
+            : base(parent, alignment)
         {
+            this.Offset = newOffset;
         }
 
         // Hose properties : thickness, lpm , pressure 

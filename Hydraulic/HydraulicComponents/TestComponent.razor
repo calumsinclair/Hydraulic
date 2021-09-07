@@ -2,11 +2,12 @@
 @inject SpawnEvents SpawnEvents;
 
 <div class="component"
-     @onclick="() => SpawnEvents.OnComponentSelected(Node.Props, this.Refresh )">
+     @onclick="() => SpawnEvents.OnComponentSelected(Node.Props, this.Refresh )" style="position:relative">
 
+   
     @foreach (CustomPortModel port in Node.Ports)
     {
-        <div style="position:relative; top:@port.Offset.Item2; left:@port.Offset.Item1"> 
+        <div style="position:absolute; top:@(port.Offset.Item2)px; left:@(port.Offset.Item1+5)px">
             <PortRenderer Port="port" Class="default"></PortRenderer>
         </div>
     }
