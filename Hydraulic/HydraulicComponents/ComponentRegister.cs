@@ -12,9 +12,10 @@ namespace Hydraulic.HydraulicComponents
     {
         public Func<IProperties> props;
         public ComponentDisplayState displayState;
-        public PortAlignment[] ports;
+        public (int, int)[] ports;
 
-        public ComponentData(Func<IProperties> newProps, ComponentDisplayState displayState, PortAlignment[] newPorts)
+        public ComponentData
+            (Func<IProperties> newProps, ComponentDisplayState displayState, (int, int)[]  newPorts)
         {
             props = newProps;
             this.displayState = displayState;
@@ -30,13 +31,16 @@ namespace Hydraulic.HydraulicComponents
 
         public ComponentRegister()
         {
-            PortAlignment[] topAndBottom = { PortAlignment.Top, PortAlignment.Bottom };
-            
+            //PortAlignment[] topAndBottom = { PortAlignment.Top, PortAlignment.Bottom };
+            (int, int)[] topAndBottom = { (0, 0), (0, 100) };
+            (int, int)[] fourMiddle = { (0, 0), (1, 0), (0, 1), (1, 1) };
+
             //Pump
             Register(
-                new ComponentData(()=>new Pump(PumpType.FixedDisplacement),
-                new ComponentDisplayState(imagePrefix + "PumpFixedDisplacement.png"), 
+                new ComponentData(() => new Pump(PumpType.FixedDisplacement),
+                new ComponentDisplayState(imagePrefix + "PumpFixedDisplacement.png"),
                 topAndBottom
+
             ));
 
             Register(
@@ -51,11 +55,11 @@ namespace Hydraulic.HydraulicComponents
                 new ComponentDisplayState(imagePrefix + "MotorElectirc.png"),
                 topAndBottom));
 
-            // ControlValve
+            // ControlValve       
             Register(
                 new ComponentData(() => new DirectionalControlVavle(ControlValveType.ProportionalControl),
                 new ControlValveDisplayState(imagePrefix, imagePrefix + "DirectionalControlValve43.png"),
-                topAndBottom));
+                fourMiddle));
 
         }
 

@@ -4,6 +4,13 @@
 <div class="component"
      @onclick="() => SpawnEvents.OnComponentSelected(Node.Props, this.Refresh )">
 
+    @foreach (CustomPortModel port in Node.Ports)
+    {
+        <div style="position:relative; top:@port.Offset.Item2; left:@port.Offset.Item1"> 
+            <PortRenderer Port="port" Class="default"></PortRenderer>
+        </div>
+    }
+
     @for (int i = 0; i < Node.DisplayState.Images.Length; i++)
     {
         if (i < 2)
@@ -16,12 +23,6 @@
                  style="transform: scaleX(-1);" />
         }
     }
-
-    @foreach (var port in Node.Ports)
-    {
-        <PortRenderer Port="port" Class="default"></PortRenderer>
-    }
-
 </div>
 
 @code {

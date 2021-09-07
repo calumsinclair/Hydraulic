@@ -9,18 +9,15 @@ namespace Hydraulic.HydraulicComponents
 {
     public class CustomPortModel : PortModel
     {
-        private double offsetX = 0;
-        public new Point Position { get; set; }
+        public (int, int) Offset { get; private set; }
 
-        public CustomPortModel(NodeModel parent, PortAlignment alignment, double newOffset) : base(parent, alignment, null, null)
+        public CustomPortModel(NodeModel parent,  (int,int) Offset) : base(parent, PortAlignment.Top, null, null)
         {
-            offsetX = newOffset;
         }
 
         // Hose properties : thickness, lpm , pressure 
         // Component leakage / pressure drop 
         // Actuator : weight, mass 
         // rotate component 
-
     }
 }

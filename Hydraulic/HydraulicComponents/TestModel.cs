@@ -13,7 +13,7 @@ namespace Hydraulic.HydraulicComponents
         public TestModel(Point position,
             ComponentDisplayState displayState, 
             Properties.IProperties props,
-            PortAlignment[] ports
+            (int,int)[] ports
         ) : base(position)
         {
             DisplayState = displayState;
@@ -25,11 +25,11 @@ namespace Hydraulic.HydraulicComponents
             PortModel newPort = new PortModel(this,PortAlignment.Bottom, extraPoint, newSize);
 
             AddPort(newPort);*/
-
-            
+          
             foreach(var port in ports)
             {
-                AddPort(port);
+                CustomPortModel model = new CustomPortModel(this, port);
+                AddPort(model);
             }
         }
 
