@@ -52,6 +52,10 @@
         Diagram.Nodes.Add(node1);
         Diagram.Nodes.Add(node2);
         Diagram.Links.Add(new CustomLinkModel (node1.GetPort(PortAlignment.Top), node2.GetPort(PortAlignment.Bottom)));
+
+        Diagram.Options.Links.DefaultLinkComponent = typeof(CustomLinkComponent);
+        Diagram.Options.Links.Factory = (Diagram diagram, PortModel sourcePort) => { return new CustomLinkModel(sourcePort); };
+
     }
 
     public void CreateComponentClicked(int key)
