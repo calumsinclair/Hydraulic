@@ -1,0 +1,67 @@
+﻿@using Hydraulic.Shared
+
+<SectionHeader>Properties</SectionHeader>
+
+<div class="propEditor">
+        @if (component != null)
+        {
+            // Gets information about vairables in the record
+            Type pumpType = component.GetType();
+            FieldInfo[] fields = pumpType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            <table class="field-list">
+                @foreach (var field in fields)
+                {
+                    <tr class="field">
+                    <PropField field=@field value=@field.GetValue(component) OnValueChange="(newVal) => onPropChange(field, newVal)" />
+                    </tr>
+                }
+            </table>
+        }
+</div>
+
+@using HydraulicComponents.Properties;
+@using System.Reflection;
+
+@inject SpawnEvents SpawnEvents;
+
+@code {
+
+    private IProperties component;
+    private Action propertiesUpdated;
+
+
+    protected override void OnInitialized()
+    {
+        SpawnEvents.ComponentSelected += DisplaySelectedProps;
+    }
+
+    // Event to refresh the properties panel
+    private void DisplaySelectedProps(IProperties newProps, Action onPropsUpdated)
+    {
+        propertiesUpdated = onPropsUpdated;
+        component = newProps;
+
+        InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+
+    private void onPropChange(FieldInfo field, string value)
+    {
+        field.SetValue(component, StringToProperty(field, value));
+        propertiesUpdated();
+    }
+
+    private object StringToProperty(FieldInfo field, string value)
+    {
+        if (field.FieldType.IsEnum)
+            return Enum.Parse(field.FieldType, value);
+        else if (field.FieldType == typeof(int))
+            return int.Parse(value);
+
+        throw new Exception("Unsupported Type");
+    }
+}
+

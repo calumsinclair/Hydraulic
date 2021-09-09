@@ -1,0 +1,40 @@
+﻿.propEditor{
+    overflow:auto;
+}
+
+.field-list {
+    border-spacing: 0 20px;
+    border-collapse: separate;
+    width: 100%;
+}
+
+::deep .field {
+    margin-bottom: 20px;
+}
+
+    ::deep .field span {
+        display: inline-block;
+        padding-right: 20px;
+    }
+
+    ::deep .field select {
+        width: 100%;
+        min-width: 50px;
+    }
+
+    ::deep .field input {
+        width : 100%;
+        min-width: 50px;
+    }
+
+
+::deep input {
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #e2e2e2;
+    outline: none;
+}
+
+    ::deep input:focus {
+        box-shadow: inset 0px 0px 7px 0px rgb(0 0 0 / 50%);
+    }

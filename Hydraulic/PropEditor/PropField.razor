@@ -1,0 +1,61 @@
+﻿@using System.Reflection;
+<td>
+    <span>@StringCut(field.Name)</span>
+</td>
+@if (field.FieldType.IsEnum)
+{
+
+<td>
+    <select @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())">
+
+        @foreach (var value in Enum.GetValues(field.FieldType))
+        {
+            if ((int)value == (int)this.value)
+            {
+                <option selected>@value</option>
+            }
+            else
+            {
+                <option>@value</option>
+            }
+
+        }
+
+    </select>
+</td>
+}
+else if (field.FieldType == typeof(int))
+{
+    <td><input type="number" value="@value.ToString()" @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())"></td>
+}
+
+@code {
+
+    [Parameter]
+    public EventCallback<string> OnValueChange { get; set; }
+
+    [Parameter]
+    public FieldInfo field { get; set; }
+
+    [Parameter]
+    public object value { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    private string StringCut(string newString)
+    {
+        int pFrom = newString.IndexOf("<") + 1;
+        int pTo = newString.LastIndexOf(">");
+
+        if (pFrom == -1 || pTo == -1)
+        {
+            Console.Error.WriteLine("Failed to convert the string when reflecting on the properties");
+        }
+
+        return newString.Substring(pFrom, pTo - pFrom);
+    }
+
+}
