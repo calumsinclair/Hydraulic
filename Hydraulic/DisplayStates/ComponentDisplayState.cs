@@ -10,9 +10,12 @@ namespace Hydraulic
     {
 
         private string[] images = new string[1];
+        private (int, int)[] image_sizes = new (int,int)[1];
+
         public ComponentDisplayState(string image)
         {
             images[0] = image;
+            image_sizes[0] = (50,50);
         }
 
         public virtual string[] Images
@@ -23,11 +26,19 @@ namespace Hydraulic
             }
         }
 
-        public string RepresentativeImage
+        public virtual (int, int)[] ImageSize
         {
             get
             {
-                return images[0];
+                return image_sizes;
+            }
+        }
+
+        public virtual int RepresentativeIndex
+        {
+            get
+            {
+                return 0;
             }
         }
 

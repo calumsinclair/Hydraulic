@@ -16,11 +16,18 @@
     {
         if (i < 2)
         {
-            <img src="@Node.DisplayState.Images[i]" height="50" width="50" ondragstart="{ return false }" />
+            <img 
+                 src="@Node.DisplayState.Images[i]"
+                 height="@Node.DisplayState.ImageSize[i].Item2"
+                 width="@Node.DisplayState.ImageSize[i].Item1"
+                 ondragstart="{ return false }" />
         }
         else
         {
-            <img src="@Node.DisplayState.Images[i]" height="50" width="50" ondragstart="{ return false }"
+            <img src="@Node.DisplayState.Images[i]"
+                 height="@Node.DisplayState.ImageSize[i].Item2"
+                 width="@Node.DisplayState.ImageSize[i].Item1"
+                 ondragstart="{ return false }"
                  style="transform: scaleX(-1);" />
         }
     }
