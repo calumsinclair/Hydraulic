@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -14,7 +14,7 @@
     <None Include="wwwroot\Images\Components\CheckValveSpring.png" />
     <None Include="wwwroot\Images\Components\Filter.png" />
     <None Include="wwwroot\Images\Components\GaugePressure.png" />
-    <None Include="wwwroot\Images\Components\MotorElectirc.png" />
+    <None Include="wwwroot\Images\Components\MotorElectric.png" />
     <None Include="wwwroot\Images\Components\PumpFixedDisplacement.png" />
     <None Include="wwwroot\Images\Components\ValveThrottleVairable.png" />
   </ItemGroup>

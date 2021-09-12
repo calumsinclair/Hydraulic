@@ -12,8 +12,16 @@ namespace Hydraulic.HydraulicComponents.Properties
         FixedDisplacement,
         VairableDisplacement
     }
+
+    public enum PowerType
+    {
+        ElectricMotor,
+        Generator
+    }
     public record Pump(
-        PumpType Type,
+        PumpType Type = PumpType.VairableDisplacement,
+        PowerType Power = PowerType.ElectricMotor,
+        int ShaftSpeed = 200,
         int Displacement = 30
     ) : IProperties
     {}
