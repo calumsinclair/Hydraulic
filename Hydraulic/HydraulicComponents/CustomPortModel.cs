@@ -9,17 +9,31 @@ namespace Hydraulic.HydraulicComponents
 {
     public class CustomPortModel : PortModel
     {
-        public (int, int) Offset { get; private set; }
+        //private TestModel testModel;
+        //private PortAlignment allignment;
+        //private PortInfo.Info port;
 
-        public CustomPortModel(NodeModel parent, PortAlignment alignment, (int,int) newOffset)
+        public (int, int) Offset { get; private set; }
+        public bool IsOut { get; set; }
+
+        public CustomPortModel(NodeModel parent, PortAlignment alignment, (int,int) newOffset, bool isOut)
             : base(parent, alignment)
         {
-            this.Offset = newOffset;
+            Offset = newOffset;
+            IsOut = isOut;
         }
 
-        // Hose properties : thickness, lpm , pressure 
-        // Component leakage / pressure drop 
-        // Actuator : weight, mass 
-        // rotate component 
+        public override bool CanAttachTo(PortModel port)
+        {
+            // Checks for same-node/port attachements
+            if (!base.CanAttachTo(port))
+                return false;
+
+            // Only able to attach to the same port type
+            if (!(port is CustomPortModel cp))
+                return false;
+
+            return IsOut != cp.IsOut;
+        }
     }
 }

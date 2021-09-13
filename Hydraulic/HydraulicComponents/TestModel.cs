@@ -13,7 +13,7 @@ namespace Hydraulic.HydraulicComponents
         public TestModel(Point position,
             ComponentDisplayState displayState, 
             Properties.IProperties props,
-            (int,int)[] ports
+            PortInfo ports
         ) : base(position)
         {
             DisplayState = displayState;
@@ -26,15 +26,16 @@ namespace Hydraulic.HydraulicComponents
 
             AddPort(newPort);*/
           
-            foreach(var port in ports)
+            foreach(var port in ports.portInfos)
             {
                 PortAlignment allignment = PortAlignment.Bottom;
-                if(port.Item2 < 25)
+                if(port.yPos < 25)
                 {
                     allignment = PortAlignment.Top;
                 }
 
-                CustomPortModel model = new CustomPortModel(this, allignment, port);
+                (int, int) offset = (port.xPos, port.yPos);
+                CustomPortModel model = new CustomPortModel(this, allignment, offset, port.isOut);
 
 
                 AddPort(model);

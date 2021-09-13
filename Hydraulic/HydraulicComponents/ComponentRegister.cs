@@ -12,10 +12,10 @@ namespace Hydraulic.HydraulicComponents
     {
         public Func<IProperties> props;
         public ComponentDisplayState displayState;
-        public (int, int)[] ports;
+        public PortInfo ports;
 
         public ComponentData
-            (Func<IProperties> newProps, ComponentDisplayState displayState, (int, int)[]  newPorts)
+            (Func<IProperties> newProps, ComponentDisplayState displayState, PortInfo  newPorts)
         {
             props = newProps;
             this.displayState = displayState;
@@ -31,12 +31,14 @@ namespace Hydraulic.HydraulicComponents
 
         public ComponentRegister()
         {
-            //PortAlignment[] topAndBottom = { PortAlignment.Top, PortAlignment.Bottom };
-            (int, int)[] topAndBottom = { (25, 0), (25, 60) };
-            (int, int)[] fourMiddle = { (60, 0), (90, 0), (60, 60), (90, 60) };
-            (int, int)[] top = { (25, 0) };
-            (int, int)[] bottom = { (25,60) };
-            (int, int)[] twoBottom = { (20, 60), (30,60) };
+            bool inPort = false;
+            bool outPort = true;
+
+            PortInfo top = new PortInfo().Add(25, 0, outPort);
+            PortInfo bottom = new PortInfo().Add(25, 60, inPort);
+            PortInfo topAndBottom = new PortInfo().Add(25, 0, outPort).Add(25, 60, inPort);
+            PortInfo twoBottom = new PortInfo().Add(20, 60, inPort).Add(30, 60, inPort);
+            PortInfo fourMiddle = new PortInfo().Add(60, 0, inPort).Add(90, 0, inPort).Add(60 ,60 ,outPort).Add(90,60,outPort);
 
             //Pump
             Register(
