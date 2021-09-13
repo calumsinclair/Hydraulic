@@ -54,7 +54,9 @@
 
         // Calculations 
         CalculationManager calcManager = new CalculationManager(Diagram);
-        Diagram.Links.Added += (BaseLinkModel b) => calcManager.ReCalculate();
+        // On new link connected 
+        Diagram.Links.Added += (BaseLinkModel b) =>
+        { b.TargetPortChanged += (BaseLinkModel b, PortModel p, PortModel x) => calcManager.ReCalculate(); };
 
     }
 

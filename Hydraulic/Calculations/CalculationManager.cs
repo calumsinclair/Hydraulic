@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Blazor.Diagrams.Core;
+using Blazor.Diagrams.Core.Models.Base;
 using Hydraulic.HydraulicComponents;
 using Hydraulic.HydraulicComponents.Properties;
 
@@ -11,6 +12,7 @@ namespace Hydraulic.Calculations
     public class CalculationManager
     {
         Diagram graph;
+        List<TestModel> nodes = new List<TestModel>();
 
         public CalculationManager(Diagram newGraph)
         {
@@ -39,6 +41,19 @@ namespace Hydraulic.Calculations
             Console.WriteLine("Calculating Graph");
             TestModel start;
             Console.WriteLine("Pump in scene = " + TryGetPump(out start));
+
+            if(start.Ports[0].Links.Count > 0)
+            {
+                Console.WriteLine("Links > 0");
+                nodes.Add(start);
+                BaseLinkModel link = start.Ports[0].Links[0];
+
+                if (link.IsAttached)
+                {
+                    TestModel next = link.TargetNode as TestModel;
+                    Console.WriteLine("Found next node !");
+                }
+            }               
         }
     }
 }
