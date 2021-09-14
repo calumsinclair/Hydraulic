@@ -36,8 +36,6 @@ namespace Hydraulic.HydraulicComponents
 
                 (int, int) offset = (port.xPos, port.yPos);
                 CustomPortModel model = new CustomPortModel(this, allignment, offset, port.isOut);
-
-
                 AddPort(model);
             }
         }

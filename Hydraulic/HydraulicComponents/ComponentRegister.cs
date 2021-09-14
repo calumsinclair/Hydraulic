@@ -38,7 +38,7 @@ namespace Hydraulic.HydraulicComponents
             PortInfo bottom = new PortInfo().Add(25, 60, inPort);
             PortInfo topAndBottom = new PortInfo().Add(25, 0, outPort).Add(25, 60, inPort);
             PortInfo twoBottom = new PortInfo().Add(20, 60, inPort).Add(30, 60, inPort);
-            PortInfo fourMiddle = new PortInfo().Add(60, 0, inPort).Add(90, 0, inPort).Add(60 ,60 ,outPort).Add(90,60,outPort);
+            PortInfo fourMiddle = new PortInfo().Add(60, 0, outPort).Add(90, 0, outPort).Add(60 ,60 ,inPort).Add(90,60,inPort);
 
             //Pump
             Register(
