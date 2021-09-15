@@ -5,28 +5,32 @@
 @if (field.FieldType.IsEnum)
 {
 
-<td>
-    <select @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())">
+    <td>
+        <select @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())">
 
-        @foreach (var value in Enum.GetValues(field.FieldType))
-        {
-            if ((int)value == (int)this.value)
+            @foreach (var value in Enum.GetValues(field.FieldType))
             {
-                <option selected>@value</option>
-            }
-            else
-            {
-                <option>@value</option>
+                if ((int)value == (int)this.value)
+                {
+                    <option selected>@value</option>
+                }
+                else
+                {
+                    <option>@value</option>
+                }
             }
 
-        }
-
-    </select>
-</td>
+        </select>
+    </td>
 }
 else if (field.FieldType == typeof(int))
 {
     <td><input type="number" value="@value.ToString()" @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())"></td>
+}
+
+else if (field.FieldType == typeof(float))
+{
+    <td><input type=number step=any value="@value.ToString()" @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())"></td>
 }
 
 @code {
