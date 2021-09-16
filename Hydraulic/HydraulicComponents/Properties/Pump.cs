@@ -21,8 +21,13 @@ namespace Hydraulic.HydraulicComponents.Properties
     public record Pump(
         PumpType Type = PumpType.VairableDisplacement,
         PowerType Power = PowerType.ElectricMotor,
-        int ShaftSpeed = 200,
-        int Displacement = 30
+        float ShaftSpeed = 200f,
+        float Displacement = 30f,
+
+        float Lpm = 0f,
+        float Pressure = 10.1f,
+        float PumpPower = 0.0f
     ) : IProperties
-    {}
+    {    
+    }
 }
