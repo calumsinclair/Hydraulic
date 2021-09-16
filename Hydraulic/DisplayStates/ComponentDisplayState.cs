@@ -43,5 +43,13 @@ namespace Hydraulic
         }
 
         public virtual void UpdateDisplayState(IProperties props) { }
+
+        public virtual (int,int) Measure()
+        {
+            // Sum in x, Max in y
+            return ImageSize.Aggregate(
+                ((int, int) a, (int, int) b) => (a.Item1 + b.Item1, Math.Max(a.Item2, b.Item2))
+            );
+        }
     }
 }

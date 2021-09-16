@@ -40,7 +40,9 @@ namespace Hydraulic.Calculations
         {
             Console.WriteLine("Calculating Graph");
             TestModel start;
-            Console.WriteLine("Pump in scene = " + TryGetPump(out start));
+            bool pumpInScene = TryGetPump(out start);
+            Console.WriteLine("Pump in scene = " + pumpInScene);
+            if (!pumpInScene) return;
 
             if(start.Ports[0].Links.Count > 0)
             {

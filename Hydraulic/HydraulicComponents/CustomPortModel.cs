@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blazor.Diagrams.Core.Geometry;
 using Blazor.Diagrams.Core.Models;
+using Hydraulic.HydraulicComponents.Positioners;
 
 namespace Hydraulic.HydraulicComponents
 {
@@ -13,10 +14,10 @@ namespace Hydraulic.HydraulicComponents
         //private PortAlignment allignment;
         //private PortInfo.Info port;
 
-        public (int, int) Offset { get; private set; }
+        public (Positioner, Positioner) Offset { get; private set; }
         public bool IsOut { get; set; }
 
-        public CustomPortModel(NodeModel parent, PortAlignment alignment, (int,int) newOffset, bool isOut)
+        public CustomPortModel(NodeModel parent, PortAlignment alignment, (Positioner, Positioner) newOffset, bool isOut)
             : base(parent, alignment)
         {
             Offset = newOffset;

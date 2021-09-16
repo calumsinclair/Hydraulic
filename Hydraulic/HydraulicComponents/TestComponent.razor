@@ -7,7 +7,11 @@
    
     @foreach (CustomPortModel port in Node.Ports)
     {
-        <div style="position:absolute; top:@(port.Offset.Item2)px; left:@(port.Offset.Item1+5)px">
+        var measured = Node.DisplayState.Measure();
+        var margin = 5; // There is a 5 pixel margin on all our nodes
+        <div style="position:absolute;
+                top:@(port.Offset.Item2.Resolve(measured.Item2 + margin*2, 0))px; /*Margin*2 because its on both sides */
+                left:@(port.Offset.Item1.Resolve(measured.Item1 + margin*2, 0))px">
             <PortRenderer Port="port" Class="default"></PortRenderer>
         </div>
     }

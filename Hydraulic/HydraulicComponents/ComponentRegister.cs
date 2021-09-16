@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Blazor.Diagrams.Core.Models;
 using Hydraulic.DisplayStates;
 using Hydraulic.HydraulicComponents.Properties;
+using Hydraulic.HydraulicComponents.Positioners;
+using static Hydraulic.HydraulicComponents.Positioners.Positioner;
 
 namespace Hydraulic.HydraulicComponents
 {
@@ -34,11 +36,25 @@ namespace Hydraulic.HydraulicComponents
             bool inPort = false;
             bool outPort = true;
 
-            PortInfo top = new PortInfo().Add(25, 0, outPort);
-            PortInfo bottom = new PortInfo().Add(25, 60, inPort);
-            PortInfo topAndBottom = new PortInfo().Add(25, 0, outPort).Add(25, 60, inPort);
-            PortInfo twoBottom = new PortInfo().Add(20, 60, inPort).Add(30, 60, inPort);
-            PortInfo fourMiddle = new PortInfo().Add(60, 0, outPort).Add(90, 0, outPort).Add(60 ,60 ,inPort).Add(90,60,inPort);
+            PortInfo top = new PortInfo()
+                .Add(Pos<Center>(), Pos<Top>(), outPort);
+
+            PortInfo bottom = new PortInfo()
+                .Add(Pos<Center>(), Pos<Bottom>(), inPort);
+
+            PortInfo topAndBottom = new PortInfo()
+                .Add(Pos<Center>(), Pos<Top>(), outPort)
+                .Add(Pos<Center>(), Pos<Bottom>(), inPort);
+
+            PortInfo twoBottom = new PortInfo()
+                .Add(Pos<Center>() + 10, Pos<Bottom>(), inPort)
+                .Add(Pos<Center>() - 10, Pos<Bottom>(), inPort);
+
+            PortInfo fourMiddle = new PortInfo()
+                .Add(Pos<Center>() * 0.5f, Pos<Top>(), outPort)
+                .Add(Pos<Center>() * 1.5f, Pos<Top>(), outPort)
+                .Add(Pos<Center>() + new Percent(0.25f), Pos<Bottom>(), inPort) // Same as before just diffrent way
+                .Add(Pos<Center>() + new Percent(-0.25f), Pos<Bottom>(), inPort);
 
             //Pump
             Register(

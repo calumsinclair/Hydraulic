@@ -18,24 +18,20 @@ namespace Hydraulic.HydraulicComponents
         {
             DisplayState = displayState;
             Props = props;
-
-            /*
-            Point extraPoint = new Point(0, 0);
-            Size newSize = new Size(1, 3);
-            PortModel newPort = new PortModel(this,PortAlignment.Bottom, extraPoint, newSize);
-
-            AddPort(newPort);*/
           
             foreach(var port in ports.portInfos)
             {
                 PortAlignment allignment = PortAlignment.Bottom;
-                if(port.yPos < 25)
+                int ypos = 0;
+                int size = 10;
+                ypos = port.yPos.Resolve(size, ypos);
+
+                if(ypos < size/2)
                 {
                     allignment = PortAlignment.Top;
                 }
 
-                (int, int) offset = (port.xPos, port.yPos);
-                CustomPortModel model = new CustomPortModel(this, allignment, offset, port.isOut);
+                CustomPortModel model = new CustomPortModel(this, allignment, (port.xPos, port.yPos), port.isOut);
                 AddPort(model);
             }
         }
