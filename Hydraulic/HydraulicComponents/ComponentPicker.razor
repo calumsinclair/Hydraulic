@@ -12,11 +12,12 @@
     <div class="grid-container">
         @foreach (var component in registry.GetComponents())
         {
+            var displayState = component.Value.displayState();
             <div class="grid-item" @onclick='() => SpawnEvents.OnComponentSpawned(component.Key)'>
-                <img src="@component.Value.displayState.Images[@component.Value.displayState.RepresentativeIndex]"
-                     height="@component.Value.displayState.ImageSize[@component.Value.displayState.RepresentativeIndex].Item2"
-                     width="@component.Value.displayState.ImageSize[@component.Value.displayState.RepresentativeIndex].Item1" />
-                <p>@ComponentNameFromFilename(@component.Value.displayState.Images[@component.Value.displayState.RepresentativeIndex])</p>
+                <img src="@displayState.Images[displayState.RepresentativeIndex]"
+                     height="@displayState.ImageSize[displayState.RepresentativeIndex].Item2"
+                     width="@displayState.ImageSize[displayState.RepresentativeIndex].Item1" />
+                <p>@ComponentNameFromFilename(displayState.Images[displayState.RepresentativeIndex])</p>
             </div>
         }
     </div>

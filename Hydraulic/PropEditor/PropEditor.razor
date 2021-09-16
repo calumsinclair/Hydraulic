@@ -48,22 +48,10 @@
         });
     }
 
-    private void onPropChange(FieldInfo field, string value)
+    private void onPropChange(FieldInfo field, object value)
     {
-        field.SetValue(component, StringToProperty(field, value));
+        field.SetValue(component, value);
         propertiesUpdated();
-    }
-
-    private object StringToProperty(FieldInfo field, string value)
-    {
-        if (field.FieldType.IsEnum)
-            return Enum.Parse(field.FieldType, value);
-        else if (field.FieldType == typeof(int))
-            return int.Parse(value);
-        else if (field.FieldType == typeof(float))
-            return float.Parse(value);
-
-        throw new Exception("Unsupported Type");
     }
 }
 

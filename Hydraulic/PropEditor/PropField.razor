@@ -6,7 +6,7 @@
 {
 
     <td>
-        <select @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())">
+        <select @onchange="(e) => PropChanged(()=>Enum.Parse(field.FieldType, e.Value.ToString()))">
 
             @foreach (var value in Enum.GetValues(field.FieldType))
             {
@@ -25,18 +25,18 @@
 }
 else if (field.FieldType == typeof(int))
 {
-    <td><input type="number" value="@value.ToString()" @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())"></td>
+    <td><input type="number" value="@value.ToString()" @onchange="(e) => PropChanged(()=>int.Parse(e.Value.ToString()))"></td>
 }
 
 else if (field.FieldType == typeof(float))
 {
-    <td><input type=number step=any value="@value.ToString()" @onchange="(e) => OnValueChange.InvokeAsync(e.Value.ToString())"></td>
+    <td><input type=number step=any value="@value.ToString()" @onchange="(e) => PropChanged(()=>float.Parse(e.Value.ToString()))"></td>
 }
 
 @code {
 
     [Parameter]
-    public EventCallback<string> OnValueChange { get; set; }
+    public EventCallback<object> OnValueChange { get; set; }
 
     [Parameter]
     public FieldInfo field { get; set; }
@@ -60,6 +60,17 @@ else if (field.FieldType == typeof(float))
         }
 
         return newString.Substring(pFrom, pTo - pFrom);
+    }
+
+    private void PropChanged(Func<object> parse)
+    {
+        try
+        {
+            OnValueChange.InvokeAsync(parse());
+        }catch(Exception e)
+        {
+            Console.WriteLine("Failed to parse input");
+        }
     }
 
 }
