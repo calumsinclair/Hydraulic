@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Hydraulic.HydraulicComponents.Properties
 {
-    public record ActuatorCylinder(
-    int weight
-) : IProperties
+    public class ActuatorCylinder : Properties
     {
+        int weight;
+        //public ActuatorCylinder(Action<Properties> newObserver) : base(newObserver) { }
     }
+
 }

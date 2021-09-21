@@ -14,6 +14,10 @@ namespace Hydraulic.Calculations
         Diagram graph;
         List<TestModel> nodes = new List<TestModel>();
 
+        // Calculators 
+
+        PumpCalculator pumpCalculator = new PumpCalculator();
+
         public CalculationManager(Diagram newGraph)
         {
             graph = newGraph;
@@ -54,6 +58,16 @@ namespace Hydraulic.Calculations
                     Console.WriteLine("Found next node !");
                 }
             }               
+        }
+
+        public void OnComponentUpdated(Properties props)
+        {
+            if(props is Pump)
+            {
+                Pump thisPump = props as Pump;
+                float flowRate = pumpCalculator.CalculatePumpFlowRate(thisPump.Displacement, thisPump.ShaftSpeed, 100);
+                thisPump.Lpm = flowRate;
+            }
         }
     }
 }

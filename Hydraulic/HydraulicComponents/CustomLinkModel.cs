@@ -9,7 +9,7 @@ namespace Hydraulic.HydraulicComponents
 {
     public class CustomLinkModel : LinkModel 
     {
-        public IProperties props = new Hose(10);
+        public Properties.Properties props = new Hose();
         public CustomLinkModel(PortModel sourcePort, PortModel targetPort = null) : base(sourcePort, targetPort) { }
     }
 }

@@ -7,13 +7,13 @@
         {
             // Gets information about vairables in the record
             Type pumpType = component.GetType();
-            FieldInfo[] fields = pumpType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo[] props = pumpType.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
 
             <table class="field-list">
-                @foreach (var field in fields)
+                @foreach (var prop in props)
                 {
                     <tr class="field">
-                    <PropField field=@field value=@field.GetValue(component) OnValueChange="(newVal) => onPropChange(field, newVal)" />
+                    <PropField prop=@prop value=@prop.GetValue(component) OnValueChange="(newVal) => onPropChange(prop, newVal)" />
                     </tr>
                 }
             </table>
@@ -27,9 +27,8 @@
 
 @code {
 
-    private IProperties component;
+    private Properties component;
     private Action propertiesUpdated;
-
 
     protected override void OnInitialized()
     {
@@ -37,33 +36,30 @@
     }
 
     // Event to refresh the properties panel
-    private void DisplaySelectedProps(IProperties newProps, Action onPropsUpdated)
+    private void DisplaySelectedProps(Properties newProps, Action onPropsUpdated)
     {
         propertiesUpdated = onPropsUpdated;
         component = newProps;
+        newProps.Observer += UpdateWindow;
 
+        UpdateWindow(newProps);
+    }
+
+    private void UpdateWindow(Properties props)
+    {
         InvokeAsync(() =>
         {
             StateHasChanged();
         });
     }
 
-    private void onPropChange(FieldInfo field, string value)
+
+    private void onPropChange(PropertyInfo prop, string value)
     {
-        field.SetValue(component, StringToProperty(field, value));
+        component.UpdateValue(prop, value);
         propertiesUpdated();
     }
 
-    private object StringToProperty(FieldInfo field, string value)
-    {
-        if (field.FieldType.IsEnum)
-            return Enum.Parse(field.FieldType, value);
-        else if (field.FieldType == typeof(int))
-            return int.Parse(value);
-        else if (field.FieldType == typeof(float))
-            return float.Parse(value);
 
-        throw new Exception("Unsupported Type");
-    }
 }
 

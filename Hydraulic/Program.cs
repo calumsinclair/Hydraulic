@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Hydraulic.HydraulicComponents;
+using Hydraulic.Calculations;
 
 namespace Hydraulic
 {
@@ -21,6 +22,7 @@ namespace Hydraulic
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<SpawnEvents>();
             builder.Services.AddSingleton<ComponentRegister>();
+            builder.Services.AddSingleton<CalculationManager>();
 
 
             await builder.Build().RunAsync();

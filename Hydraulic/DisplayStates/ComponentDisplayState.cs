@@ -42,6 +42,6 @@ namespace Hydraulic
             }
         }
 
-        public virtual void UpdateDisplayState(IProperties props) { }
+        public virtual void UpdateDisplayState(Properties props) { }
     }
 }

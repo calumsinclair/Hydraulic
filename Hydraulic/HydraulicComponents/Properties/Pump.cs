@@ -18,16 +18,18 @@ namespace Hydraulic.HydraulicComponents.Properties
         ElectricMotor,
         Generator
     }
-    public record Pump(
-        PumpType Type = PumpType.VairableDisplacement,
-        PowerType Power = PowerType.ElectricMotor,
-        float ShaftSpeed = 200f,
-        float Displacement = 30f,
 
-        float Lpm = 0f,
-        float Pressure = 10.1f,
-        float PumpPower = 0.0f
-    ) : IProperties
-    {    
+    public class Pump : Properties
+    {
+        public PumpType Type { get; set; } = PumpType.VairableDisplacement;
+        public PowerType Power { get; set; } = PowerType.ElectricMotor;
+        public float ShaftSpeed { get; set; } = 200f;
+        public float Displacement { get; set; } = 30f;
+
+        public float Lpm { get; set; } = 0f;
+        float Pressure { get; set; } = 10.1f;
+        float PumpPower { get; set; } = 0.0f;
+
+        //public Pump(Action<Properties> newObserver) : base(newObserver) { }
     }
 }

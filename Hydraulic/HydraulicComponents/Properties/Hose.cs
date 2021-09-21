@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 namespace Hydraulic.HydraulicComponents.Properties
 {
     
-    public record Hose(int Diameter = 1) : IProperties
+    public class Hose : Properties
     {
+        int Diameter = 1;
+
+        //public Hose(Action<Properties> newObserver) : base(newObserver) { }
     }
 }
