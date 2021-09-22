@@ -7,7 +7,7 @@
         {
             // Gets information about vairables in the record
             Type pumpType = component.GetType();
-            PropertyInfo[] props = pumpType.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo[] props = pumpType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
             <table class="field-list">
                 @foreach (var prop in props)
