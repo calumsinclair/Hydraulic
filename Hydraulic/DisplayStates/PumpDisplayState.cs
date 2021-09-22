@@ -31,7 +31,7 @@ namespace Hydraulic.DisplayStates
             image_size[1] = (50, 50);
         }
 
-        public override void UpdateDisplayState(IProperties props)
+        public override void UpdateDisplayState(Properties props)
         {
             base.UpdateDisplayState(props);
             Pump pumpProps = props as Pump;

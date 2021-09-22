@@ -31,7 +31,7 @@ namespace Hydraulic.DisplayStates
         public override (int, int)[] ImageSize => image_size;
         public override int RepresentativeIndex => 1;
 
-        public override void UpdateDisplayState(IProperties props)
+        public override void UpdateDisplayState(Properties props)
         {
             base.UpdateDisplayState(props);
             DirectionalControlVavle controlValveProps = props as DirectionalControlVavle;

@@ -19,10 +19,12 @@
 @code {
 
     public Diagram Diagram { get; set; }
+    public CalculationManager calcManager;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         var options = new DiagramOptions
         {
             DeleteKey = "Delete", // What key deletes the selected nodes/links
@@ -53,7 +55,7 @@
         Diagram.Options.Links.Factory = (Diagram diagram, PortModel sourcePort) => { return new CustomLinkModel(sourcePort); };
 
         // Calculations 
-        CalculationManager calcManager = new CalculationManager(Diagram);
+        calcManager = new CalculationManager(Diagram);
         // On new link connected 
         Diagram.Links.Added += (BaseLinkModel b) =>
         { b.TargetPortChanged += (BaseLinkModel b, PortModel p, PortModel x) => calcManager.ReCalculate(); };

@@ -9,16 +9,17 @@ namespace Hydraulic
     public class SpawnEvents
     {
         public Action<int> ComponentSpawned;
-        public Action<IProperties, Action> ComponentSelected;
+        public Action<Properties, Action> ComponentSelected;
 
         public void OnComponentSpawned(int key)
         {
             ComponentSpawned?.Invoke(key);
         }
 
-        public void OnComponentSelected(IProperties props, Action onPropsUpdated)
+        public void OnComponentSelected(Properties props, Action onPropsUpdated)
         {
             ComponentSelected?.Invoke(props, onPropsUpdated);
         }
+
     }
 }

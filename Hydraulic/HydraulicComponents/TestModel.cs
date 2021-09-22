@@ -8,11 +8,11 @@ namespace Hydraulic.HydraulicComponents
     public class TestModel : NodeModel
     {
         public ComponentDisplayState DisplayState;
-        public Properties.IProperties Props;
+        public Properties.Properties Props;
 
         public TestModel(Point position,
             ComponentDisplayState displayState, 
-            Properties.IProperties props,
+            Properties.Properties props,
             PortInfo ports
         ) : base(position)
         {

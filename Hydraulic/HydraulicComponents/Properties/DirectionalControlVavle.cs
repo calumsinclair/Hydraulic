@@ -12,9 +12,11 @@ namespace Hydraulic.HydraulicComponents.Properties
         Lever
     }
 
-    public record DirectionalControlVavle(
-        ControlValveType ControlType
-    ) : IProperties
+    public class DirectionalControlVavle : Properties
     {
+        public ControlValveType ControlType { get; set; }
+
+        //public DirectionalControlVavle(Action<Properties> newObserver) : base(newObserver) { }
     }
+        
 }
