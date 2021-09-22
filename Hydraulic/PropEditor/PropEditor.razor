@@ -53,7 +53,7 @@
         });
     }
 
-    private void onPropChange(FieldInfo field, object value)
+    private void onPropChange(PropertyInfo field, object value)
     {
         field.SetValue(component, value);
         propertiesUpdated();

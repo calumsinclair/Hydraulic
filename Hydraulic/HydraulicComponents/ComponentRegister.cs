@@ -12,12 +12,12 @@ namespace Hydraulic.HydraulicComponents
 {
     public class ComponentData
     {
-        public Func<IProperties> props;
+        public Func<Properties.Properties> props;
         public Func<ComponentDisplayState> displayState;
         public PortInfo ports;
 
         public ComponentData
-            (Func<IProperties> newProps, Func<ComponentDisplayState> displayState, PortInfo  newPorts)
+            (Func<Properties.Properties> newProps, Func<ComponentDisplayState> displayState, PortInfo  newPorts)
         {
             props = newProps;
             this.displayState = displayState;
@@ -59,7 +59,7 @@ namespace Hydraulic.HydraulicComponents
             //Pump
             Register(
                 new ComponentData(
-                    () => new Pump(PumpType.FixedDisplacement),
+                    () => new Pump(),
                     ()=> new PumpDisplayState(imagePrefix, imagePrefix + "PumpFixedDisplacement.png"),
                 top
 
@@ -68,14 +68,14 @@ namespace Hydraulic.HydraulicComponents
             // ControlValve       
             Register(
                 new ComponentData(
-                    () => new DirectionalControlVavle(ControlValveType.ProportionalControl),
+                    () => new DirectionalControlVavle(),
                     () => new ControlValveDisplayState(imagePrefix, imagePrefix + "DirectionalControlValve43.png"),
                 fourMiddle));
 
             // Hydraulic Cylinder
             Register(
                 new ComponentData(
-                    () => new ActuatorCylinder(50),
+                    () => new ActuatorCylinder(),
                     () => new ComponentDisplayState(imagePrefix + "ActuatorCylinder.png"),
                 twoBottom));
 

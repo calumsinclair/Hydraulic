@@ -5,7 +5,7 @@
 @if (prop.PropertyType.IsEnum)
 {
     <td>
-        <select @onchange="(e) => PropChanged(()=>Enum.Parse(field.FieldType, e.Value.ToString()))">
+        <select @onchange="(e) => PropChanged(()=>Enum.Parse(prop.PropertyType, e.Value.ToString()))">
 
             @foreach (var value in Enum.GetValues(prop.PropertyType))
             {
