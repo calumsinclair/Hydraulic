@@ -1,6 +1,6 @@
 ﻿@using System.Reflection;
 <td>
-    <span>@StringCut(prop.Name)</span>
+    <span>prop.Name</span>
 </td>
 @if (prop.PropertyType.IsEnum)
 {
@@ -46,21 +46,6 @@ else if (prop.PropertyType == typeof(float))
     protected override void OnInitialized()
     {
         base.OnInitialized();
-    }
-
-    private string StringCut(string newString)
-    {
-        int pFrom = newString.IndexOf("<") + 1;
-        int pTo = newString.LastIndexOf(">");
-
-        if (pFrom == -1 || pTo == -1)
-        {
-            Console.Error.WriteLine("Failed to convert the string when reflecting on the properties");
-        }
-
-        string result = newString.Substring(pFrom, pTo - pFrom);
-        //Console.WriteLine("input " + newString);
-        return result;
     }
 
 }
