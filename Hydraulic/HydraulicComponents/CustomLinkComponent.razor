@@ -1,7 +1,7 @@
 ﻿@using Blazor.Diagrams.Core.Extensions;
 @inject SpawnEvents SpawnEvents;
 
-<line @onclick="() => SpawnEvents.OnComponentSelected(Link.props, this.Refresh)"
+<line @onclick="() => SpawnEvents.OnComponentSelected(Link.props)"
           x1="@Link.GetMiddleSourceX().ToInvariantString()"
           y1="@Link.GetMiddleSourceY().ToInvariantString()"
           x2="@Link.GetTargetX().ToInvariantString()"
@@ -10,12 +10,31 @@
           stroke-width="3" />
 
 @code {
-    [Parameter]
-    public CustomLinkModel Link { get; set; }
 
-    private void Refresh()
+    private CustomLinkModel _link;
+    [Parameter]
+    public CustomLinkModel Link
     {
-        //Link.DisplayState.UpdateDisplayState(Node.Props);
+        get
+        {
+            return _link;
+        }
+        set
+        {
+            if (_link != null)
+            {
+                _link.props.OnPropertyChanged -= Refresh;
+            }
+            _link = value;
+            _link.props.OnPropertyChanged += Refresh;
+
+        }
+    }
+
+
+
+    private void Refresh(Properties.Properties p)
+    {
         InvokeAsync(StateHasChanged);
     }
 }

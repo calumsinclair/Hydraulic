@@ -16,7 +16,6 @@ namespace Hydraulic.HydraulicComponents.Properties
     {
         public ControlValveType ControlType { get; set; }
 
-        //public DirectionalControlVavle(Action<Properties> newObserver) : base(newObserver) { }
     }
         
 }

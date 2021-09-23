@@ -68,7 +68,7 @@ else if (prop.PropertyType == typeof(float))
             OnValueChange.InvokeAsync(parse());
         }catch(Exception e)
         {
-            Console.WriteLine("Failed to parse input");
+            Console.WriteLine("Failed to parse input "+e.Message);
         }
     }
 

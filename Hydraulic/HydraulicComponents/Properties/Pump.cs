@@ -29,7 +29,5 @@ namespace Hydraulic.HydraulicComponents.Properties
         public float Lpm { get; set; } = 0f;
         float Pressure { get; set; } = 10.1f;
         float PumpPower { get; set; } = 0.0f;
-
-        //public Pump(Action<Properties> newObserver) : base(newObserver) { }
     }
 }

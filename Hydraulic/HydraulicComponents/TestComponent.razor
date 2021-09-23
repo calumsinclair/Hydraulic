@@ -2,7 +2,7 @@
 @inject SpawnEvents SpawnEvents;
 
 <div class="component"
-     @onclick="() => SpawnEvents.OnComponentSelected(Node.Props, this.Refresh )" style="position:relative">
+     @onclick="() => SpawnEvents.OnComponentSelected(Node.Props)" style="position:relative">
 
    
     @foreach (CustomPortModel port in Node.Ports)
@@ -38,10 +38,27 @@
 </div>
 
 @code {
-    [Parameter]
-    public TestModel Node { get; set; }
 
-    public void Refresh()
+
+    public TestModel _node;
+    [Parameter]
+    public TestModel Node {
+        get
+        {
+            return _node;
+        }
+        set
+        {
+            if (_node != null)
+            {
+                _node.Props.OnPropertyChanged -= Refresh;
+            }
+            _node = value;
+            _node.Props.OnPropertyChanged += Refresh;
+        }
+    }
+
+    public void Refresh(Properties.Properties p)
     {
         Node.DisplayState.UpdateDisplayState(Node.Props);
         InvokeAsync(StateHasChanged);

@@ -8,7 +8,6 @@ namespace Hydraulic.HydraulicComponents.Properties
     public class ActuatorCylinder : Properties
     {
         int weight { get; set; }
-        //public ActuatorCylinder(Action<Properties> newObserver) : base(newObserver) { }
     }
 
 }

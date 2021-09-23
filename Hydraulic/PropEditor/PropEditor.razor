@@ -28,7 +28,6 @@
 @code {
 
     private Properties component;
-    private Action propertiesUpdated;
 
     protected override void OnInitialized()
     {
@@ -36,11 +35,10 @@
     }
 
     // Event to refresh the properties panel
-    private void DisplaySelectedProps(Properties newProps, Action onPropsUpdated)
+    private void DisplaySelectedProps(Properties newProps)
     {
-        propertiesUpdated = onPropsUpdated;
         component = newProps;
-        newProps.Observer += UpdateWindow;
+        newProps.OnPropertyChanged += UpdateWindow;
 
         UpdateWindow(newProps);
     }
@@ -55,8 +53,7 @@
 
     private void onPropChange(PropertyInfo field, object value)
     {
-        field.SetValue(component, value);
-        propertiesUpdated();
+        component.UpdateValue(field, value);
     }
 }
 

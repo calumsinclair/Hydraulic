@@ -8,7 +8,5 @@ namespace Hydraulic.HydraulicComponents.Properties
     public class Tank : Properties
     {
         int size { get; set; } = 10;
-
-        //public Tank(Action<Properties> newObserver) : base(newObserver) { }
     }
 }
