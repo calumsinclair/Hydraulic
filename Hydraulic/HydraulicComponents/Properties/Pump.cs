@@ -21,13 +21,13 @@ namespace Hydraulic.HydraulicComponents.Properties
 
     public class Pump : Properties
     {
-        public PumpType Type { get; set; } = PumpType.VairableDisplacement;
+        public PumpType Type { get; set; } = PumpType.FixedDisplacement;
         public PowerType Power { get; set; } = PowerType.ElectricMotor;
-        public float ShaftSpeed { get; set; } = 200f;
-        public float Displacement { get; set; } = 30f;
+        public float ShaftSpeed { get; set; } 
+        public float Displacement { get; set; } 
 
-        public float Lpm { get; set; } = 0f;
-        float Pressure { get; set; } = 10.1f;
-        float PumpPower { get; set; } = 0.0f;
+        public float Lpm { get; set; } 
+        float Pressure { get; set; } 
+        float PumpPower { get; set; } 
     }
 }

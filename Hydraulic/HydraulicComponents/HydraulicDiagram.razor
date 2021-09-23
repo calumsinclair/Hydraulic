@@ -56,6 +56,7 @@
 
         // Calculations 
         calcManager = new CalculationManager(Diagram);
+
         // On new link connected 
         Diagram.Links.Added += (BaseLinkModel b) =>
         { b.TargetPortChanged += (BaseLinkModel b, PortModel p, PortModel x) => calcManager.ReCalculate(); };
@@ -70,6 +71,8 @@
         // Create and spawn the component
         var model = new TestModel(new Point(0, 0), newComponent.displayState(), newComponent.props(), newComponent.ports);
         Diagram.Nodes.Add(model);
+
+        model.Props.OnPropertyChanged += calcManager.OnComponentUpdated;
     }
 
     private NodeModel NewNode(double x, double y)

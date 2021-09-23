@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Blazor.Diagrams.Core;
 using Blazor.Diagrams.Core.Models.Base;
@@ -42,6 +43,7 @@ namespace Hydraulic.Calculations
 
         public void ReCalculate()
         {
+            /*
             Console.WriteLine("Calculating Graph");
             TestModel start;
             bool pumpInScene = TryGetPump(out start);
@@ -59,7 +61,7 @@ namespace Hydraulic.Calculations
                     TestModel next = link.TargetNode as TestModel;
                     Console.WriteLine("Found next node !");
                 }
-            }               
+            }   */            
         }
 
         public void OnComponentUpdated(Properties props)
@@ -67,8 +69,10 @@ namespace Hydraulic.Calculations
             if(props is Pump)
             {
                 Pump thisPump = props as Pump;
+
                 float flowRate = pumpCalculator.CalculatePumpFlowRate(thisPump.Displacement, thisPump.ShaftSpeed, 100);
-                thisPump.Lpm = flowRate;
+                PropertyInfo property = thisPump.GetType().GetProperty("Lpm");
+                props.UpdateValue(property, flowRate);
             }
         }
     }

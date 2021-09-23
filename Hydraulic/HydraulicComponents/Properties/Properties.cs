@@ -12,6 +12,9 @@ namespace Hydraulic.HydraulicComponents.Properties
 
         public void UpdateValue(PropertyInfo prop, object value)
         {
+            if (value.Equals(prop.GetValue(this)))
+                return;
+
             prop.SetValue(this, value);
             Notify();
         }
@@ -20,5 +23,6 @@ namespace Hydraulic.HydraulicComponents.Properties
         {
             OnPropertyChanged?.Invoke(this);
         }
+
     }
 }

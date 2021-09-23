@@ -7,6 +7,11 @@ namespace Hydraulic.Calculations
 {
     public class PumpCalculator
     {
+        public PumpCalculator()
+        {
+
+        }
+
         public float CalculatePumpFlowRate(float displacement, float motorSpeed, float efficiency)
         {
             //Flow = displacement * speed * efficiency / 100
@@ -20,9 +25,5 @@ namespace Hydraulic.Calculations
             float displacement = flowRate / (motorSpeed / (efficiency / 100f));
             return displacement;
         }
-
-
-
-        //public float CalculateMotorPower()
     }
 }
