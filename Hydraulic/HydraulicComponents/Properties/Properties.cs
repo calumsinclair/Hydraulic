@@ -48,16 +48,6 @@ namespace Hydraulic.HydraulicComponents.Properties
     public class Properties
     {
         public Action<Properties> OnPropertyChanged;
-
-        public void UpdateValue(PropertyInfo prop, object value)
-        {
-            if (value.Equals(prop.GetValue(this)))
-                return;
-
-            prop.SetValue(this, value);
-            Notify();
-        }
-
         public void Notify()
         {
             OnPropertyChanged?.Invoke(this);
