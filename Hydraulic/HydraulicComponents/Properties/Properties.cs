@@ -20,8 +20,11 @@ namespace Hydraulic.HydraulicComponents.Properties
             set
             {
                 // insert desired logic here
-                _value = value;
-                _properties.Notify();
+                if(!_value.Equals(value))
+                {
+                    _value = value;
+                    _properties.Notify();
+                }
             }
         }
 
