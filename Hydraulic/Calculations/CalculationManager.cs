@@ -71,8 +71,7 @@ namespace Hydraulic.Calculations
                 Pump thisPump = props as Pump;
 
                 float flowRate = pumpCalculator.CalculatePumpFlowRate(thisPump.Displacement, thisPump.ShaftSpeed, 100);
-                PropertyInfo property = thisPump.GetType().GetProperty("Lpm");
-                props.UpdateValue(property, flowRate);
+                thisPump.Lpm.Value = flowRate;
             }
         }
     }

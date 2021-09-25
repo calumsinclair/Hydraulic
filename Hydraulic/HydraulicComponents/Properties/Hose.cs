@@ -8,6 +8,11 @@ namespace Hydraulic.HydraulicComponents.Properties
     
     public class Hose : Properties
     {
-        public int Diameter { get; set; } = 1;
+        public ObservableProperty<int> Diameter { get; set; }
+
+        public Hose()
+        {
+            Diameter = new ObservableProperty<int>(1, this);
+        }
     }
 }

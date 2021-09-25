@@ -7,6 +7,12 @@ namespace Hydraulic.HydraulicComponents.Properties
 {
     public class Tank : Properties
     {
-        int size { get; set; } = 10;
+        public ObservableProperty<int> size { get; set; }
+
+        public Tank()
+        {
+            size = new ObservableProperty<int>(10, this);
+        }
+        
     }
 }

@@ -21,13 +21,24 @@ namespace Hydraulic.HydraulicComponents.Properties
 
     public class Pump : Properties
     {
-        public PumpType Type { get; set; } = PumpType.FixedDisplacement;
-        public PowerType Power { get; set; } = PowerType.ElectricMotor;
-        public float ShaftSpeed { get; set; } 
-        public float Displacement { get; set; } 
+        public ObservableProperty<PumpType> Type { get; set; }
+        public ObservableProperty<PowerType> Power { get; set; }
+        public ObservableProperty<float> ShaftSpeed { get; set; }
+        public ObservableProperty<float> Displacement { get; set; }
 
-        public float Lpm { get; set; } 
-        float Pressure { get; set; } 
-        float PumpPower { get; set; } 
+        public ObservableProperty<float> Lpm { get; set; }
+        public ObservableProperty<float> Pressure { get; set; }
+        public ObservableProperty<float> PumpPower { get; set; }
+
+        public Pump()
+        {
+            Type = new ObservableProperty<PumpType>(PumpType.FixedDisplacement, this);
+            Power = new ObservableProperty<PowerType>(PowerType.ElectricMotor,this);
+            ShaftSpeed = new ObservableProperty<float>(this);
+            Displacement = new ObservableProperty<float>(this);
+            Lpm = new ObservableProperty<float>(this);
+            Pressure = new ObservableProperty<float>(this);
+            PumpPower = new ObservableProperty<float>(this);
+        }
     }
 }

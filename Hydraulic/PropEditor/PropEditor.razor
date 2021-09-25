@@ -6,14 +6,19 @@
         @if (component != null)
         {
             // Gets information about vairables in the record
-            Type pumpType = component.GetType();
-            PropertyInfo[] props = pumpType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            Type componentType = component.GetType();
+            PropertyInfo[] props = componentType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
             <table class="field-list">
                 @foreach (var prop in props)
                 {
+                    var observaleProp = prop.GetValue(component);
                     <tr class="field">
-                    <PropField prop=@prop value=@prop.GetValue(component) OnValueChange="(newVal) => onPropChange(prop, newVal)" />
+                    <PropField 
+                        propType=@prop.PropertyType.GenericTypeArguments[0]
+                        propName=@prop.Name
+                        value=@observaleProp.GetType().GetProperty("Value").GetValue(observaleProp)
+                        OnValueChange="(newVal) => onPropChange(prop, newVal)" />
                     </tr>
                 }
             </table>
@@ -53,7 +58,10 @@
 
     private void onPropChange(PropertyInfo field, object value)
     {
-        component.UpdateValue(field, value);
+
+        object c = field.GetGetMethod().Invoke(component, null);
+        object[] args = { value };
+        c.GetType().GetProperty("Value").GetSetMethod().Invoke(c, args);
     }
 }
 

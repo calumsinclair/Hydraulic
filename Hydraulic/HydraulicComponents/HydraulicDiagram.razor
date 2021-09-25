@@ -54,6 +54,7 @@
         Diagram.Options.Links.DefaultLinkComponent = typeof(CustomLinkComponent);
         Diagram.Options.Links.Factory = (Diagram diagram, PortModel sourcePort) => { return new CustomLinkModel(sourcePort); };
 
+        PortModel x;
         // Calculations 
         calcManager = new CalculationManager(Diagram);
 

@@ -7,7 +7,12 @@ namespace Hydraulic.HydraulicComponents.Properties
 {
     public class ActuatorCylinder : Properties
     {
-        int weight { get; set; }
+        public ObservableProperty<int> weight { get; set; }
+
+        public ActuatorCylinder()
+        {
+            weight = new ObservableProperty<int>(this);
+        }
     }
 
 }

@@ -14,7 +14,12 @@ namespace Hydraulic.HydraulicComponents.Properties
 
     public class DirectionalControlVavle : Properties
     {
-        public ControlValveType ControlType { get; set; }
+        public ObservableProperty<ControlValveType> ControlType { get; set; }
+
+        public DirectionalControlVavle()
+        {
+            ControlType = new ObservableProperty<ControlValveType>(this);
+        }
 
     }
         

@@ -6,6 +6,42 @@ using System.Reflection;
 
 namespace Hydraulic.HydraulicComponents.Properties
 {
+    public class ObservableProperty<T>
+    {
+        private T _value;
+        private Properties _properties;
+        public T Value
+        {
+            get
+            {
+                // insert desired logic here
+                return _value;
+            }
+            set
+            {
+                // insert desired logic here
+                _value = value;
+                _properties.Notify();
+            }
+        }
+
+        public ObservableProperty(Properties p) 
+        {
+            _properties = p;
+        }
+
+        public ObservableProperty(T value, Properties p)
+        {
+            _value = value;
+            _properties = p;
+        }
+
+        public static implicit operator T(ObservableProperty<T> value)
+        {
+            return value.Value;
+        }
+    }
+
     public class Properties
     {
         public Action<Properties> OnPropertyChanged;
@@ -19,7 +55,7 @@ namespace Hydraulic.HydraulicComponents.Properties
             Notify();
         }
 
-        void Notify()
+        public void Notify()
         {
             OnPropertyChanged?.Invoke(this);
         }

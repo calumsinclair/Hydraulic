@@ -18,6 +18,7 @@ namespace Hydraulic.HydraulicComponents
         {
             DisplayState = displayState;
             Props = props;
+            DisplayState.UpdateDisplayState(props);
           
             foreach(var port in ports.portInfos)
             {
