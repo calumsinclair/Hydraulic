@@ -1,15 +1,19 @@
-﻿using System;
+﻿using Hydraulic.HydraulicComponents.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Hydraulic.Calculations
 {
     public class PumpCalculator
     {
-        public PumpCalculator()
+        public PumpCalculator(Pump newPump)
         {
-
+            float flowRate = CalculatePumpFlowRate(newPump.Displacement, newPump.ShaftSpeed, 100);
+            PropertyInfo property = newPump.GetType().GetProperty("Lpm");
+            newPump.UpdateValue(property, flowRate);
         }
 
         public float CalculatePumpFlowRate(float displacement, float motorSpeed, float efficiency)

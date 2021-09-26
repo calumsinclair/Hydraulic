@@ -17,8 +17,6 @@ namespace Hydraulic.Calculations
 
         // Calculators 
 
-        PumpCalculator pumpCalculator = new PumpCalculator();
-
         public CalculationManager(Diagram newGraph)
         {
             graph = newGraph;
@@ -68,10 +66,13 @@ namespace Hydraulic.Calculations
         {
             if(props is Pump)
             {
-                Pump thisPump = props as Pump;
+                PumpCalculator pumpCalculator = new PumpCalculator(props as Pump);
+            }
 
-                float flowRate = pumpCalculator.CalculatePumpFlowRate(thisPump.Displacement, thisPump.ShaftSpeed, 100);
-                thisPump.Lpm.Value = flowRate;
+            if (props is Hose)
+            {
+                HoseCalculator hoseCalculator = new HoseCalculator(props as Hose);
+
             }
         }
     }

@@ -1,14 +1,30 @@
-﻿using System;
+﻿using Hydraulic.HydraulicComponents.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Hydraulic.Calculations
 {
-    public record HoseCalculation (float crossSectionalArea, float velocity, float reynoldsNumber);
-
     public class HoseCalculator
     {
+        public record HoseCalculation(float crossSectionalArea, float velocity, float reynoldsNumber);
+
+        public HoseCalculator(Hose newHose)
+        {
+            HoseCalculation result = CalculateHoseProperties(10, newHose.SpecifiedGravity, newHose.Diameter, newHose.AbsoluteViscosity);
+
+            PropertyInfo areaProperty = newHose.GetType().GetProperty("CrossSectionalArea");
+            newHose.UpdateValue(areaProperty, result.crossSectionalArea);
+
+            PropertyInfo velocityProperty = newHose.GetType().GetProperty("Velocity");
+            newHose.UpdateValue(velocityProperty, result.velocity);
+
+            PropertyInfo reynoldsProperty = newHose.GetType().GetProperty("ReynoldsNumber");
+            newHose.UpdateValue(reynoldsProperty, result.reynoldsNumber);
+        }
+
         public HoseCalculation CalculateHoseProperties
             (float floatRate, float specificGravity, float insideDiameter, float absoluteViscosity)
         {
