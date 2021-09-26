@@ -41,13 +41,15 @@ namespace Hydraulic.Calculations
 
         public void ReCalculate()
         {
-            /*
             Console.WriteLine("Calculating Graph");
+
             TestModel start;
             bool pumpInScene = TryGetPump(out start);
+
             Console.WriteLine("Pump in scene = " + pumpInScene);
             if (!pumpInScene) return;
 
+            //if pump is connected 
             if(start.Ports[0].Links.Count > 0)
             {
                 Console.WriteLine("Links > 0");
@@ -59,20 +61,35 @@ namespace Hydraulic.Calculations
                     TestModel next = link.TargetNode as TestModel;
                     Console.WriteLine("Found next node !");
                 }
-            }   */            
+            }            
         }
 
         public void OnComponentUpdated(Properties props)
         {
-            if(props is Pump)
+            Console.WriteLine("Component Updated!");
+
+            TestModel pump;
+            if(!TryGetPump(out pump))
             {
-                PumpCalculator pumpCalculator = new PumpCalculator(props as Pump);
+                Console.WriteLine("Exited graph Loop");
+                return;
             }
-
-            if (props is Hose)
+            else
             {
-                HoseCalculator hoseCalculator = new HoseCalculator(props as Hose);
+                Calculation thisCalculation = new PumpCalculator().Calculate(pump.Props as Pump);
 
+                TestModel thisModel = pump;
+                while(thisModel.Ports[0].Links.Count > 0)
+                {
+                    Console.WriteLine("In while loop");
+                    CustomLinkModel link = thisModel.Ports[0].Links[0] as CustomLinkModel;
+
+                    if (link.IsAttached)
+                    {
+                        HoseCalculator hoseCalculator = new HoseCalculator(link.props as Hose, thisCalculation);                     
+                        thisModel = link.TargetNode as TestModel;
+                    }
+                }
             }
         }
     }

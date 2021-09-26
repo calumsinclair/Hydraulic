@@ -9,11 +9,13 @@ namespace Hydraulic.Calculations
 {
     public class PumpCalculator
     {
-        public PumpCalculator(Pump newPump)
+        public Calculation Calculate(Pump newPump)
         {
             float flowRate = CalculatePumpFlowRate(newPump.Displacement, newPump.ShaftSpeed, 100);
-            PropertyInfo property = newPump.GetType().GetProperty("Lpm");
-            newPump.UpdateValue(property, flowRate);
+
+            newPump.Lpm.Value = flowRate;
+
+            return new Calculation(0, flowRate);
         }
 
         public float CalculatePumpFlowRate(float displacement, float motorSpeed, float efficiency)

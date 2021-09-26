@@ -1,6 +1,8 @@
 ﻿@inject SpawnEvents SpawnEvents;
 @inject ComponentRegister ComponentRegister;
 
+@inject IJSRuntime JsRuntime;
+
 <div style="height:100% ; width:100%; background-color:lightgray">
     <CascadingValue Value="Diagram">
         <DiagramCanvas></DiagramCanvas>
@@ -47,18 +49,16 @@
         Diagram = new Diagram(options);
         Diagram.RegisterModelComponent<TestModel, TestComponent>();
 
+        // Calculations
+        calcManager = new CalculationManager(Diagram);
         SpawnEvents.ComponentSpawned += CreateComponentClicked;
 
-        // Custom link test  
+        // Custom link test
         Diagram.RegisterModelComponent<CustomLinkModel, CustomLinkComponent>();
         Diagram.Options.Links.DefaultLinkComponent = typeof(CustomLinkComponent);
-        Diagram.Options.Links.Factory = (Diagram diagram, PortModel sourcePort) => { return new CustomLinkModel(sourcePort); };
+        Diagram.Options.Links.Factory = (Diagram diagram, PortModel sourcePort) => { return new CustomLinkModel(sourcePort, calcManager); };
 
-        PortModel x;
-        // Calculations 
-        calcManager = new CalculationManager(Diagram);
-
-        // On new link connected 
+        // On new link connected
         Diagram.Links.Added += (BaseLinkModel b) =>
         { b.TargetPortChanged += (BaseLinkModel b, PortModel p, PortModel x) => calcManager.ReCalculate(); };
 
@@ -68,6 +68,20 @@
     {
         // Get component from the registry
         ComponentData newComponent = ComponentRegister.GetComponent(key);
+
+        // If you try spawn a pump
+        if (newComponent.props() is Pump)
+        {
+            foreach (TestModel node in Diagram.Nodes)
+            {
+                // If there is already a pump
+                if (node.Props is Pump)
+                {
+                    JsRuntime.InvokeVoidAsync("alert", "Only one pump can be spawned in the diagram!");
+                    return;
+                }
+            }
+        }
 
         // Create and spawn the component
         var model = new TestModel(new Point(0, 0), newComponent.displayState(), newComponent.props(), newComponent.ports);

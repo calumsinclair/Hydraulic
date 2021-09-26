@@ -11,18 +11,13 @@ namespace Hydraulic.Calculations
     {
         public record HoseCalculation(float crossSectionalArea, float velocity, float reynoldsNumber);
 
-        public HoseCalculator(Hose newHose)
+        public HoseCalculator(Hose newHose, Calculation newCalc)
         {
-            HoseCalculation result = CalculateHoseProperties(10, newHose.SpecifiedGravity, newHose.Diameter, newHose.AbsoluteViscosity);
+            HoseCalculation result = CalculateHoseProperties(newCalc.flow, newHose.SpecifiedGravity, newHose.Diameter, newHose.AbsoluteViscosity);
 
-            PropertyInfo areaProperty = newHose.GetType().GetProperty("CrossSectionalArea");
-            newHose.UpdateValue(areaProperty, result.crossSectionalArea);
-
-            PropertyInfo velocityProperty = newHose.GetType().GetProperty("Velocity");
-            newHose.UpdateValue(velocityProperty, result.velocity);
-
-            PropertyInfo reynoldsProperty = newHose.GetType().GetProperty("ReynoldsNumber");
-            newHose.UpdateValue(reynoldsProperty, result.reynoldsNumber);
+            newHose.CrossSectionalArea.Value = result.crossSectionalArea;
+            newHose.Velocity.Value = result.velocity;
+            newHose.ReynoldsNumber.Value = result.reynoldsNumber;
         }
 
         public HoseCalculation CalculateHoseProperties

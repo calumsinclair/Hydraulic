@@ -9,5 +9,11 @@ namespace Hydraulic.Calculations
     {
         public float pressure { get; set; }
         public float flow { get; set; }
+
+        public Calculation(float newPressure, float newFlow)
+        {
+            pressure = newPressure;
+            flow = newFlow;
+        }
     }
 }
