@@ -69,7 +69,7 @@ namespace Hydraulic.Calculations
             Console.WriteLine("Component Updated!");
 
             TestModel pump;
-            if(!TryGetPump(out pump))
+            if (!TryGetPump(out pump))
             {
                 Console.WriteLine("Exited graph Loop");
                 return;
@@ -79,14 +79,14 @@ namespace Hydraulic.Calculations
                 Calculation thisCalculation = new PumpCalculator().Calculate(pump.Props as Pump);
 
                 TestModel thisModel = pump;
-                while(thisModel.Ports[0].Links.Count > 0)
+                while (thisModel != null && thisModel.Ports[0].Links.Count > 0)
                 {
                     Console.WriteLine("In while loop");
                     CustomLinkModel link = thisModel.Ports[0].Links[0] as CustomLinkModel;
 
                     if (link.IsAttached)
                     {
-                        HoseCalculator hoseCalculator = new HoseCalculator(link.props as Hose, thisCalculation);                     
+                        HoseCalculator hoseCalculator = new HoseCalculator(link.props as Hose, thisCalculation);
                         thisModel = link.TargetNode as TestModel;
                     }
                 }
